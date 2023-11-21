@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform } from "react-native";
+import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import MenuCard from "./components/MenuCard";
 import { dishes } from "./misc/Dummy";

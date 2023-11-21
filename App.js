@@ -22,26 +22,21 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       {/* <View > */}
-      <View style={styles.starttitle}>
-        <Text style={styles.titleText}>오늘의 식단</Text>
-        <Text>2023년xx월xx일</Text>
-        {/* TODO: 날짜 동적으로 바꾸기 */}
-      </View>
-      <SafeAreaView>
-        <FlatList />
-        <TouchableOpacity onPress={toggleDetailVisibility}>
-          <View style={styles.menuCards}>
-            <MenuCard dish={dishes[0]} />
-            {isDetailVisible && (
-            <View style={styles.detailContainer}>
-              <Text>상세정보 내용</Text>
-              {/* 여기에 자세한내용추가 */}
-            </View>
-          )}
-          </View>
-        </TouchableOpacity>
-      </SafeAreaView>
-      <StatusBar style="auto" />
+        <View style={styles.starttitle}>
+          <Text style={styles.titleText}>오늘의 식단</Text>
+          <Text>2023년xx월xx일</Text>
+          { /* TODO: 날짜 동적으로 바꾸기 */ }
+        </View>
+        <FlatList
+          data={dishes}
+          renderItem={({item}) => <MenuCard dish={item} />}
+          keyExtractor={item => item.id}
+          style={styles.menuCards}
+        />
+        {/* <View style={styles.menuCards}>
+          <MenuCard dish={dishes[0]} />
+        </View> */}
+        <StatusBar style="auto" />
       {/* </View> */}
     </SafeAreaView>
   );
@@ -52,8 +47,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    marginHorizontal: "5%",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    // marginHorizontal: '5%',
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
   starttitle: {
     alignSelf: "flex-start", // 왼쪽 정렬

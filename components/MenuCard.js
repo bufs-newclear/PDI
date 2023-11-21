@@ -4,11 +4,16 @@ import { Shadow } from 'react-native-shadow-2';
 export default function MenuCard({dish}) {
     return (
         <Shadow
-            radius={10}
+            radius={5}
             offset={[0, 5]}
             style={{
-                width: '100%'
+                // paddingHorizontal: 15,
             }}
+            containerStyle={{
+                marginBottom: 25,
+                marginHorizontal: 24,
+            }}
+            stretch={true}
         >
             <View style={styles.container}>
                 <View style={styles.imageArea}>
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
     container: {
         // flexDirection: 'column',
         backgroundColor: 'white',
-        // width: 'auto',
+        width: '100%',
         height: 300,
         borderRadius: 10,
         overflow: 'hidden', //이미지 깨지는거 방지

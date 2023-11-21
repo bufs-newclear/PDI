@@ -14,12 +14,15 @@ export default function App() {
           <Text>2023년xx월xx일</Text>
           { /* TODO: 날짜 동적으로 바꾸기 */ }
         </View>
-        {/* <SafeAreaView>
-          <FlatList />
-        </SafeAreaView> */}
-        <View style={styles.menuCards}>
+        <FlatList
+          data={dishes}
+          renderItem={({item}) => <MenuCard dish={item} />}
+          keyExtractor={item => item.id}
+          style={styles.menuCards}
+        />
+        {/* <View style={styles.menuCards}>
           <MenuCard dish={dishes[0]} />
-        </View>
+        </View> */}
         <StatusBar style="auto" />
       {/* </View> */}
     </SafeAreaView>
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    paddingHorizontal: '5%',
+    // marginHorizontal: '5%',
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
   starttitle: {

@@ -6,6 +6,9 @@ export default function MenuCard({dish}) {
         <Shadow
             radius={10}
             offset={[0, 5]}
+            style={{
+                width: '100%'
+            }}
         >
             <View style={styles.container}>
                 <View style={styles.imageArea}>
@@ -16,7 +19,6 @@ export default function MenuCard({dish}) {
                     />
                 </View>
                 <View style={styles.infoArea}>
-                    <Text>Hello, world!</Text>
                     <Text style={styles.menuName}>{dish.name}</Text>
                     <Text style={styles.price}>{dish.price}</Text>
                 </View>
@@ -28,24 +30,40 @@ export default function MenuCard({dish}) {
 
 const styles = StyleSheet.create({
     container: {
+        // flexDirection: 'column',
         backgroundColor: 'white',
-        width: '100%',
-        height: 400,
+        // width: 'auto',
+        height: 300,
         borderRadius: 10,
-        overflow: 'hidden',
+        overflow: 'hidden', //이미지 깨지는거 방지
     },
     imageArea: {
         flex: 1,
         backgroundColor: 'grey',
+        
         // borderColor: 'red',
         // borderWidth: 5,
     },
     image: {
         width: '100%',
         height: '100%',
-        overflow: 'hidden',
+        // overflow: 'hidden',
     },
     infoArea: {
         flex: 1,
-    }
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 15,
+        paddingTop: 10,
+
+
+    },
+    menuName: {
+        fontSize:28,
+       
+    },
+    price: {
+        fontSize:24,
+
+    },
 });

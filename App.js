@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -9,30 +9,40 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import MenuCard from "./components/MenuCard";
+import MenuCardFolder from "./components/MenuCardFolder";
 import { dishes } from "./misc/Dummy";
 
 export default function App() {
-  const [isDetailVisible, setIsDetailVisible] = useState(false);
-
-  const toggleDetailVisibility = () => {
-    setIsDetailVisible(!isDetailVisible);
-  };
   return (
     <SafeAreaView style={styles.container}>
       {/* <View > */}
         <View style={styles.starttitle}>
           <Text style={styles.titleText}>오늘의 식단</Text>
-          <Text>2023년xx월xx일</Text>
+          <Text style={styles.textfont}>xx월xx일</Text>
           { /* TODO: 날짜 동적으로 바꾸기 */ }
         </View>
-        <FlatList
+        <MenuCard
+          title="므아아아"
+          dish={dishes[0]}
+          themeColor="#c55a11"
+          themeColorBackground="#fbe5d7"
+          fallbackText={"MORNING\n꼬맹이만둣국"}
+        />
+        <MenuCardFolder
+          title="조식"
+          description="3개의 메뉴가 있습니다"
+          image={undefined}
+          themeColor="#c55a11"
+          themeColorBackground="#fbe5d7"
+          fallbackText={"MORNING\n꼬맹이만둣국"}
+        />
+        {/* <FlatList
           data={dishes}
           renderItem={({item}) => <MenuCard dish={item} />}
           keyExtractor={item => item.id}
           style={styles.menuCards}
-        />
+        /> */}
         {/* <View style={styles.menuCards}>
           <MenuCard dish={dishes[0]} />
         </View> */}
@@ -57,15 +67,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 35, //Text 폰트크기 조절
   },
+  textfont: {
+    fontSize: 20,
+  },
   menuCards: {
     width: "100%",
     flexGrow: 1,
     alignSelf: "center",
-  },
-  detailContainer: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "#eee",
-    borderRadius: 5,
   },
 });

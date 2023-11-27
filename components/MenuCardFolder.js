@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 
-export default function MenuCard({ title, titl, themeColor, themeColorBackground, fallbackText , description, image, themeColor, themeColorBackground, fallbackText }) {
+export default function MenuCardFolder({
+  title,
+  description,
+  image,
+  themeColor,
+  themeColorBackground,
+  fallbackText,
+}) {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
+
   const toggleDetailVisibility = () => {
     setIsDetailVisible(!isDetailVisible);
   };
-
   return (
     <Shadow
       radius={5}
@@ -30,8 +37,15 @@ export default function MenuCard({ title, titl, themeColor, themeColorBackground
             {image ? (
               <Image source={image} style={styles.image} resizeMode="cover" />
             ) : (
-              <View style={[styles.image, { backgroundColor: themeColorBackground || "#fbe5d7" }]}>
-                 <Text style={{color: themeColor, ...styles.fallbackText}}>{fallbackText}</Text>
+              <View
+                style={[
+                  styles.image,
+                  { backgroundColor: themeColorBackground || "#fbe5d7" },
+                ]}
+              >
+                <Text style={{ color: themeColor, ...styles.fallbackText }}>
+                  {fallbackText}
+                </Text>
               </View>
             )}
             {/* <Image
@@ -45,6 +59,7 @@ export default function MenuCard({ title, titl, themeColor, themeColorBackground
             {/* <Text style={styles.price}>{dish.price}</Text> */}
             <Text>{description}</Text>
             <View>
+              <Text style={styles.timestyle}>08:00~09:00</Text>
               <Text style={styles.toggledetailText}>상세정보</Text>
             </View>
           </View>
@@ -77,10 +92,10 @@ const styles = StyleSheet.create({
     // borderWidth: 5,
   },
   fallbackText: {
-    fontSize:25,
-    fontWeight:'900',
-    marginTop:30,
-    padding:10,
+    fontSize: 25,
+    fontWeight: "900",
+    marginTop: 30,
+    padding: 10,
   },
   image: {
     width: "100%",
@@ -99,6 +114,9 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 24,
+  },
+  timestyle: {
+    fontSize:18,
   },
   toggledetailText: {
     color: "blue",

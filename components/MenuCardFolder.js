@@ -33,7 +33,7 @@ export default function MenuCardFolder({
       <TouchableOpacity onPress={toggleDetailVisibility}>
         <View style={styles.container}>
           <View style={styles.imageArea}>
-            {/* TODO: Image가 들어올 경우 이미지를 표시, 그렇지 않을 경우 themeColor에 따라 fallbackText를 표시 */}
+            {/* TODO: Image가 들어올 경우 이미지를 표시, 그렇지 않을 경우 themeColor에 따라 fallbackText를 표시 a*/}
             {image ? (
               <Image source={image} style={styles.image} resizeMode="cover" />
             ) : (

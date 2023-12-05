@@ -9,6 +9,7 @@ export default function MenuCardFolder({
   themeColor,
   themeColorBackground,
   fallbackText,
+  children,
 }) {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
 
@@ -70,8 +71,8 @@ export default function MenuCardFolder({
       </TouchableOpacity>
       {isDetailVisible && (
         <View style={styles.detailContainer}>
-          <Text>상세정보 내용</Text>
-          {/* 여기에 자세한내용추가 */}
+          {/* <Text>상세정보 내용</Text> */}
+          {children}
         </View>
       )}
     </Shadow>
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
   },
   detailContainer: {
     // marginTop: 10,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     padding: 10,
     backgroundColor: "#eee",
     // borderRadius: 5,

@@ -7,10 +7,13 @@ import {
   FlatList,
   Platform,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MenuCard from "./components/MenuCard";
 import MenuCardFolder from "./components/MenuCardFolder";
+import MenuTextcard from "./components/MenuTextcard";
+import MenuCardMini from "./components/MenuCardMini";
 import { dishes } from "./misc/Dummy";
 
 export default function App() {
@@ -22,32 +25,51 @@ export default function App() {
           <Text style={styles.textfont}>xx월xx일</Text>
           { /* TODO: 날짜 동적으로 바꾸기 */ }
         </View>
-        <MenuCard
-          title="조식"
-          image={undefined}
-          dish={dishes[0]}
-          morninginfo='학생증 필참 시 항상 무료'
-          timeText="08:00~09:00"
-          themeColor="#c55a11"
-          themeColorBackground="#fbe5d7"
-          fallbackText={"MORNING\n꼬맹이만둣국"}
-        />
-        <MenuCardFolder
-          title="학생식당"
-          description="3개의 메뉴가 있습니다"
-          themeColor="#2f5597"
-          themeColorBackground="#dae3f3"
-          fallbackText={"LUNCH\n학생식당"}
-        />
+        <ScrollView>
+          <MenuCard
+            title="조식"
+            image={undefined}
+            dish={dishes[0]}
+            morninginfo='학생증 필참 시 항상 무료'
+            timeText="08:00~09:00"
+            themeColor="#c55a11"
+            themeColorBackground="#fbe5d7"
+            fallbackText={"MORNING\n꼬맹이만둣국"}
+          />
+          <MenuCardFolder
+            title="학생식당"
+            description="3개의 메뉴가 있습니다"
+            themeColor="#2f5597"
+            themeColorBackground="#dae3f3"
+            fallbackText={"LUNCH\n학생식당"}
+          >
+            <MenuCardMini
+              title="조식"
+              image={undefined}
+              dish={dishes[0]}
+              morninginfo='학생증 필참 시 항상 무료'
+              timeText="08:00~09:00"
+              themeColor="#c55a11"
+              themeColorBackground="#fbe5d7"
+              fallbackText={"MORNING\n꼬맹이만둣국"}
+            />
+          </MenuCardFolder>
+          <MenuCardFolder
+            title="교직원식당"
+            description="1개의 메뉴가 있습니다"
+            themeColor="#548235"
+            themeColorBackground="#e2f0d9"
+            fallbackText={"LUNCH\n교직원식당"}
+          >
+            <MenuTextcard text={'숯불제육불고기\n아욱국\n쌈다시마\n쑥갓\n밥\n배추김치'} />
+          </MenuCardFolder>
+        </ScrollView>
         {/* <FlatList
           data={dishes}
           renderItem={({item}) => <MenuCard dish={item} />}
           keyExtractor={item => item.id}
           style={styles.menuCards}
         /> */}
-        {/* <View style={styles.menuCards}>
-          <MenuCard dish={dishes[0]} />
-        </View> */}
         <StatusBar style="auto" />
       {/* </View> */}
     </SafeAreaView>

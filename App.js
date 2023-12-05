@@ -23,19 +23,21 @@ export default function App() {
           { /* TODO: 날짜 동적으로 바꾸기 */ }
         </View>
         <MenuCard
-          title="므아아아"
+          title="조식"
+          image={undefined}
           dish={dishes[0]}
+          morninginfo='학생증 필참 시 항상 무료'
+          timeText="08:00~09:00"
           themeColor="#c55a11"
           themeColorBackground="#fbe5d7"
           fallbackText={"MORNING\n꼬맹이만둣국"}
         />
         <MenuCardFolder
-          title="조식"
+          title="학생식당"
           description="3개의 메뉴가 있습니다"
-          image={undefined}
-          themeColor="#c55a11"
-          themeColorBackground="#fbe5d7"
-          fallbackText={"MORNING\n꼬맹이만둣국"}
+          themeColor="#2f5597"
+          themeColorBackground="#dae3f3"
+          fallbackText={"LUNCH\n학생식당"}
         />
         {/* <FlatList
           data={dishes}
@@ -53,19 +55,19 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { //App의 최상위 컨테이너
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "center",
+    justifyContent: "center", //수평배치
     // marginHorizontal: '5%',
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
-  starttitle: {
+  starttitle: { //"날짜 정보" 컨터이너
     alignSelf: "flex-start", // 왼쪽 정렬
     marginHorizontal: 25, // 좌측 여백
   },
   titleText: {
-    fontSize: 35, //Text 폰트크기 조절
+    fontSize: 35, 
   },
   textfont: {
     fontSize: 20,

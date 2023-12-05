@@ -55,14 +55,17 @@ export default function MenuCardFolder({
             /> */}
           </View>
           <View style={styles.infoArea}>
-            <Text style={styles.menuName}>{title}</Text>
-            {/* <Text style={styles.price}>{dish.price}</Text> */}
-            <Text>{description}</Text>
-            <View>
+            <View style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}>
+              <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
               <Text style={styles.timestyle}>08:00~09:00</Text>
-              <Text style={styles.toggledetailText}>상세정보</Text>
             </View>
-          </View>
+            <Text style={styles.description}>{description}</Text>
+            <Text style={styles.toggledetailText}>상세정보</Text>
+            </View>
         </View>
       </TouchableOpacity>
       {isDetailVisible && (
@@ -77,6 +80,7 @@ export default function MenuCardFolder({
 
 const styles = StyleSheet.create({
   container: {
+    // MeunCardFolder의 최상위 컨테이너
     // flexDirection: 'column',
     backgroundColor: "white",
     width: "100%",
@@ -104,24 +108,37 @@ const styles = StyleSheet.create({
   },
   infoArea: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column", // Change to column for vertical arrangement
     justifyContent: "space-between",
     paddingHorizontal: 15,
     paddingTop: 10,
+    
   },
   menuName: {
     fontSize: 28,
+    flexGrow: 1,
+    overflow: "hidden",
   },
   price: {
     fontSize: 24,
   },
   timestyle: {
-    fontSize:18,
+    fontSize: 18,
+  },
+  description:{
+    fontSize:20,
+    position:"absolute",
+    bottom: 60,
+    left: 20,
   },
   toggledetailText: {
     color: "blue",
     marginTop: "auto",
     padding: 10,
+    position:"absolute",
+    bottom: 5,
+    right: 10,
+   
   },
   detailContainer: {
     // marginTop: 10,

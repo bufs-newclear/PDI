@@ -15,9 +15,9 @@ export default function MenuCard({
   morninginfo,
 }) {
   const [liked, setLiked] = useState(false);
-  const toggleLike =() =>{
+  const toggleLike = () => {
     setLiked(!liked);
-  }
+  };
   return (
     <Shadow
       radius={5}
@@ -58,28 +58,30 @@ export default function MenuCard({
               justifyContent: "space-between",
             }}
           >
-            <TouchableOpacity onPress={toggleLike} style={{
-              borderColor: 'red',
-              borderWidth: 1,
-              width: 25,
-              height: 25,
-              // position: 'absolute',
-              // bottom: 5,
-              // left: 5,
-            }}>
-              <Icon
-              name={liked ? 'heart' : 'heart-o'}
-              size={24}
-              color="red"
-              style={styles.likeIcon} 
-              />
-            </TouchableOpacity>
             <Text numberOfLines={1} style={styles.menuName}>
               {title}
             </Text>
             <Text style={styles.timestyle}>{timeText}</Text>
           </View>
           <Text style={styles.minfo}>{morninginfo}</Text>
+          <View style={styles.rowContainer}>
+            <TouchableOpacity
+              onPress={toggleLike}
+              style={{
+                borderColor: "red",
+                width: 25,
+                height: 25,
+              }}
+            >
+              <Icon
+                name={liked ? "heart" : "heart-o"}
+                size={24}
+                color="red"
+                style={styles.likeIcon}
+              />
+            </TouchableOpacity>
+            <Text>+120</Text>
+          </View>
           <Text style={styles.toggledetailText}>상세정보</Text>
         </View>
       </View>
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   likeIcon: {
-    position:"absolute",
+    position: "absolute",
   },
   menuName: {
     fontSize: 28,
@@ -130,6 +132,11 @@ const styles = StyleSheet.create({
     bottom: 60,
     left: 20,
   },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    bottom: 10,
+  },
   toggledetailText: {
     color: "blue",
     marginTop: "auto",
@@ -141,5 +148,11 @@ const styles = StyleSheet.create({
   },
   timestyle: {
     fontSize: 18,
+  },
+
+  // debug
+  debugBorder: {
+    borderColor: "red",
+    borderWidth: 2,
   },
 });

@@ -19,12 +19,13 @@ export default function MenuCardFolder({
   return (
     <Shadow
       radius={5}
-      offset={[0, 5]}
+      offset={[0, 4]}
       style={
         {
           // paddingHorizontal: 15,
         }
       }
+      startColor="#ddd"
       containerStyle={{
         marginBottom: 25,
         marginHorizontal: 24,
@@ -145,9 +146,12 @@ const styles = StyleSheet.create({
     // marginTop: 10,
     // marginHorizontal: 10,
     padding: 10,
+    paddingTop: 25,
     backgroundColor: "#eee",
     // borderRadius: 5,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    transform: [{translateY: -7}],
+    zIndex: -1,
   },
 });

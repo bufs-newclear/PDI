@@ -22,11 +22,7 @@ export default function MenuCard({
     <Shadow
       radius={5}
       offset={[0, 5]}
-      style={
-        {
-          /* paddingHorizontal: 15 */
-        }
-      }
+      startColor="#ddd"
       containerStyle={{
         marginBottom: 25,
         marginHorizontal: 24,

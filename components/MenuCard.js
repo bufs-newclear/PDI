@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 import Icon from "react-native-vector-icons/FontAwesome";
+import MenuTextcard from "./MenuTextcard";
 
 export default function MenuCard({
   title,
@@ -18,6 +19,11 @@ export default function MenuCard({
   const toggleLike = () => {
     setLiked(!liked);
   };
+  const [isDetailVisible, setIsDetailVisible] = useState(false);
+
+  const toggleDetailVisibility = () => {
+    setIsDetailVisible(!isDetailVisible);
+  };
   return (
     <Shadow
       radius={5}
@@ -29,58 +35,67 @@ export default function MenuCard({
       }}
       stretch={true}
     >
-      <View style={styles.container}>
-        <View style={styles.imageArea}>
-          {image ? (
-            <Image source={image} style={styles.image} resizeMode="cover" />
-          ) : (
-            <View
-              style={[
-                styles.image,
-                { backgroundColor: themeColorBackground || "#fbe5d7" },
-              ]}
-            >
-              <Text style={{ color: themeColor, ...styles.fallbackText }}>
-                {fallbackText}
-              </Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.infoArea}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text numberOfLines={1} style={styles.menuName}>
-              {title}
-            </Text>
-            <Text style={styles.timestyle}>{timeText}</Text>
+      <TouchableOpacity onPress={toggleDetailVisibility}>
+        <View style={styles.container}>
+          <View style={styles.imageArea}>
+            {image ? (
+              <Image source={image} style={styles.image} resizeMode="cover" />
+            ) : (
+              <View
+                style={[
+                  styles.image,
+                  { backgroundColor: themeColorBackground || "#fbe5d7" },
+                ]}
+              >
+                <Text style={{ color: themeColor, ...styles.fallbackText }}>
+                  {fallbackText}
+                </Text>
+              </View>
+            )}
           </View>
-          <Text style={styles.minfo}>{morninginfo}</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity
-              onPress={toggleLike}
+          <View style={styles.infoArea}>
+            <View
               style={{
-                borderColor: "red",
-                width: 25,
-                height: 25,
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
             >
-              <Icon
-                name={liked ? "heart" : "heart-o"}
-                size={24}
-                color="red"
-                style={styles.likeIcon}
-              />
-            </TouchableOpacity>
-            <Text>+120</Text>
+              <Text numberOfLines={1} style={styles.menuName}>
+                {title}
+              </Text>
+              <Text style={styles.timestyle}>{timeText}</Text>
+            </View>
+            <Text style={styles.minfo}>{morninginfo}</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity
+                onPress={toggleLike}
+                style={{
+                  borderColor: "red",
+                  width: 25,
+                  height: 25,
+                }}
+              >
+                <Icon
+                  name={liked ? "heart" : "heart-o"}
+                  size={24}
+                  color="red"
+                  style={styles.likeIcon}
+                />
+              </TouchableOpacity>
+              <Text>+120</Text>
+            </View>
+            <Text style={styles.toggledetailText}>상세정보</Text>
           </View>
-          <Text style={styles.toggledetailText}>상세정보</Text>
         </View>
-      </View>
+      </TouchableOpacity>
+      {isDetailVisible && (
+        <View style={styles.detailContainer}>
+          <MenuTextcard
+            text={"숯불제육불고기\n아욱국\n쌈다시마\n쑥갓\n밥\n배추김치"}
+          />
+        </View>
+      )}
     </Shadow>
   );
 }

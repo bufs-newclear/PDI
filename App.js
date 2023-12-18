@@ -54,15 +54,16 @@ export default function App() {
               fallbackText={"MORNING\n꼬맹이만둣국"}
             />
           </MenuCardFolder>
-          <MenuCardFolder
+          <MenuCard
             title="교직원식당"
-            description="1개의 메뉴가 있습니다"
+            image={undefined}
+            dish={dishes[0]}
+            morninginfo='학생증 필참 시 항상 무료'
+            timeText="08:00~09:00"
             themeColor="#548235"
             themeColorBackground="#e2f0d9"
             fallbackText={"LUNCH\n교직원식당"}
-          >
-            <MenuTextcard text={'숯불제육불고기\n아욱국\n쌈다시마\n쑥갓\n밥\n배추김치'} />
-          </MenuCardFolder>
+          />
         </ScrollView>
         {/* <FlatList
           data={dishes}

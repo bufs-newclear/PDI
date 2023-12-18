@@ -80,13 +80,14 @@ const styles = StyleSheet.create({
   container: { //App의 최상위 컨테이너
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "center", //수평배치
+    justifyContent: "center",
     // marginHorizontal: '5%',
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+    paddingTop: 20, // TODO: 하드코딩보다 더 괜찮은 방법 찾아야할듯
   },
-  starttitle: { //"날짜 정보" 컨터이너
+  starttitle: { //"날짜 정보" 컨테이너
     alignSelf: "flex-start", // 왼쪽 정렬
     marginHorizontal: 25, // 좌측 여백
+    marginTop: 20, // 상단 여백 추가
   },
   titleText: {
     fontSize: 35, 

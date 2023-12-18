@@ -9,3 +9,30 @@ export const dishes = [
     {id: 3, name: "돈사태찜", date: '2023-10-13', image: null, price: 5500, allergen: null, available: true},
     {id: 4, name: "참치김치볶음밥*계란후라이", date: '2023-10-13', image: null, price: 5500, allergen: null, available: true},
 ];
+
+export const morningDish = {
+  id: 1,
+  name: "소고기미역국",
+  date: "2023-10-13",
+  image: null,
+  price: null,
+  allergen: null,
+  available: true,
+};
+
+export const EmployeeDishes = {
+    id: 1,
+    menu: [
+        "사골만둣국",
+        "잡채말이어묵",
+        "콩나물무침",
+        "무말랭이무침",
+        "쌀밥/잡곡밥",
+        "배추김치",
+    ],
+    date: "2023-10-13",
+    image: null,
+    price: null,
+    allergen: null,
+    available: true,
+  };

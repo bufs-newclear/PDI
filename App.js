@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/FontAwesome";
 import Meals from "./pages/Meals";
 import Ranking from "./pages/Ranking";
 
@@ -19,7 +19,29 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = 'archive';
+
+              switch (route.name) {
+                case "Meals":
+                  iconName = 'home';
+                  break;
+
+                case "Ranking":
+                  iconName = 'bar-chart';
+                  break;
+              
+                default:
+                  iconName = 'archive';
+                  break;
+              }
+
+              return <Icon name={iconName} size={size} color={color} />
+            },
+          })}
+        >
           <Tab.Screen name="Meals" component={Meals} />
           <Tab.Screen name="Ranking" component={Ranking} />
         </Tab.Navigator>
@@ -33,6 +55,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    // marginHorizontal: '5%'
   },
 });

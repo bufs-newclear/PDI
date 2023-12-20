@@ -24,6 +24,7 @@ export default function MenuCard({
   const toggleDetailVisibility = () => {
     setIsDetailVisible(!isDetailVisible);
   };
+
   return (
     <Shadow
       radius={5}
@@ -84,6 +85,17 @@ export default function MenuCard({
                 />
               </TouchableOpacity>
               <Text>+120</Text>
+
+              <TouchableOpacity style={styles.reactButton}>
+                {/* TODO: 활성 여부에 따라 배경색 변경 */}
+                <Text style={{ fontSize: 24 }}>😐</Text>
+                <Text>+0</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.reactButton}>
+                <Text style={{ fontSize: 24 }}>😢</Text>
+                <Text>+0</Text>
+              </TouchableOpacity>
             </View>
             <Text style={styles.toggledetailText}>상세정보</Text>
           </View>
@@ -132,6 +144,16 @@ const styles = StyleSheet.create({
   likeIcon: {
     position: "absolute",
   },
+  reactButton: {
+    minWidth: 63,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#ddd",
+    borderRadius: 4,
+    padding: 4,
+    marginLeft: 5,
+    justifyContent: "space-between",
+  },
   menuName: {
     fontSize: 28,
     flexGrow: 1,
@@ -165,5 +187,8 @@ const styles = StyleSheet.create({
   debugBorder: {
     borderColor: "red",
     borderWidth: 2,
+  },
+  detailContainer: {
+    padding: 5,
   },
 });

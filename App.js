@@ -42,7 +42,10 @@ export default function App() {
             },
           })}
         >
-          <Tab.Screen name="Meals" component={Meals} />
+          <Tab.Screen name="Meals"
+            component={Meals}
+            options={{ headerShown: false }}
+          />
           <Tab.Screen name="Ranking" component={Ranking} />
         </Tab.Navigator>
       </NavigationContainer>

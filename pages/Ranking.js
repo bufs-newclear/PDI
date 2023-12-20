@@ -10,20 +10,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Meals from "./pages/Meals";
-import Ranking from "./pages/Ranking";
 
-const Tab = createBottomTabNavigator();
-
-export default function App() {
+export default function Ranking() {
   return (
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Meals" component={Meals} />
-          <Tab.Screen name="Ranking" component={Ranking} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <Text>Not yet implemented</Text>
   );
 }
 
@@ -33,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    // marginHorizontal: '5%'
+    // marginHorizontal: '5%',
+    paddingTop: 20, // TODO: 하드코딩보다 더 괜찮은 방법 찾아야할듯
   },
 });

@@ -24,6 +24,14 @@ export default function MenuCard({
   const toggleDetailVisibility = () => {
     setIsDetailVisible(!isDetailVisible);
   };
+  const [sadActive, setSadActive] = useState(false); //슬픈표정 활성화 함수
+  const toggleSad = () => {
+    setSadActive(!sadActive); 
+  };
+  const [neutralActive, setNeutralActive] = useState(false); //무표정 활성화 함수
+  const toggleNeutral = () => {
+    setNeutralActive(!neutralActive);
+  };
 
   return (
     <Shadow
@@ -86,13 +94,13 @@ export default function MenuCard({
               </TouchableOpacity>
               <Text>+120</Text>
 
-              <TouchableOpacity style={styles.reactButton}>
+              <TouchableOpacity onPress={toggleNeutral} style={[styles.reactButton,neutralActive ? styles.neutralActive : null]}>
                 {/* TODO: 활성 여부에 따라 배경색 변경 */}
                 <Text style={{ fontSize: 24 }}>😐</Text>
                 <Text>+0</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.reactButton}>
+              <TouchableOpacity onPress={toggleSad}  style={[styles.reactButton, sadActive ? styles.sadActive : null,] }>
                 <Text style={{ fontSize: 24 }}>😢</Text>
                 <Text>+0</Text>
               </TouchableOpacity>
@@ -153,6 +161,13 @@ const styles = StyleSheet.create({
     padding: 4,
     marginLeft: 5,
     justifyContent: "space-between",
+    
+  },
+  sadActive: {
+    backgroundColor: 'brown', // 활성화됐을 때의 배경색
+  },
+  neutralActive: {
+    backgroundColor: 'brown', // 활성화됐을 때의 배경색
   },
   menuName: {
     fontSize: 28,

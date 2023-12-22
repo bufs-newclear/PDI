@@ -18,17 +18,19 @@ import { ranking } from "../misc/Dummy";
 const Item = ({ rank, name, hearts }) => (
   <View style={styles.item}>
     {/* 순위에 따른 메달 색상을 표시합니다. */}
-    <FontAwesome5 name="trophy" size={24} color={getMedalColor(rank)} />
+    <FontAwesome5 name="trophy" size={24} color={getMedalColor(rank)} style={{minWidth: 40}}/>
     <Text style={styles.name}>{name}</Text>
-    <FontAwesome5 name="heart" size={24} color="red" />
-    <Text style={styles.hearts}>{hearts}</Text>
+    <View style={{minWidth: 60, flexDirection: 'row',}}>
+      <FontAwesome5 name="heart" size={24} color="red" solid/>
+      <Text style={styles.hearts}>{hearts}</Text>
+    </View>
   </View>
 );
 const getMedalColor = (rank) => {
   switch(rank) {
     case 1: return 'gold';
     case 2: return 'silver';
-    case 3: return 'brown';
+    case 3: return '#815353';
     default: return 'grey';
   }
 };
@@ -91,6 +93,7 @@ const styles = StyleSheet.create({
       fontSize:20,
       textAlign: "center",
       backgroundColor:"#f2f2f2",
+      minWidth: 40,
       paddingHorizontal:10,
       borderRadius: 5,
     },
@@ -107,6 +110,7 @@ const styles = StyleSheet.create({
       fontSize: 20,
       textAlign: "center",
       backgroundColor: "#f2f2f2",
+      minWidth: 60,
       paddingHorizontal: 10,
       borderRadius: 5,
     },
@@ -123,6 +127,7 @@ const styles = StyleSheet.create({
   name: {
     flex: 1,
     marginLeft: 8,
+    paddingLeft: 10,
     fontSize: 22,
   },
   hearts: {

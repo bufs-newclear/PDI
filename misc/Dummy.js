@@ -20,8 +20,9 @@ export const morningDish = {
   available: true,
 };
 
-export const EmployeeDishes = {
+export const employeeDishes = {
     id: 1,
+    name: "교직원식당",
     menu: [
         "사골만둣국",
         "잡채말이어묵",

@@ -33,6 +33,8 @@ export default function MenuCard({
     setNeutralActive(!neutralActive);
   };
 
+  title = title || dish['name'];
+
   return (
     <Shadow
       radius={5}
@@ -112,7 +114,10 @@ export default function MenuCard({
       {isDetailVisible && (
         <View style={styles.detailContainer}>
           <MenuTextcard
-            text={"숯불제육불고기\n아욱국\n쌈다시마\n쑥갓\n밥\n배추김치"}
+            text={dish['menu']
+              ? dish['menu'].join('\n')
+              : dish['name']
+            }
           />
         </View>
       )}

@@ -18,26 +18,19 @@ export default function MenuCardMini({
   };
 
   return (
-    <Shadow
-      radius={2}
-      offset={[0, 0]}
-      startColor="#ddd"
-      stretch={true}
-    >
-      <View style={styles.container}>
-        <View style={styles.infoArea}>
-          <View style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}>
-            <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
-            <Text style={styles.timestyle}>{timeText}</Text>
-          </View>
-          <Text style={styles.minfo}>{morninginfo}</Text> 
+    <View style={styles.container}>
+      <View style={styles.infoArea}>
+        <View style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}>
+          <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
+          <Text style={styles.timestyle}>{timeText}</Text>
         </View>
+        <Text style={styles.minfo}>{morninginfo}</Text> 
       </View>
-    </Shadow>
+    </View>
   );
 }
 
@@ -48,6 +41,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 10,
     overflow: "hidden",
+    marginBottom: 10,
   },
   infoArea: {
     flex: 1,

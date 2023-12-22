@@ -14,7 +14,7 @@ import MenuCard from "../components/MenuCard";
 import MenuCardFolder from "../components/MenuCardFolder";
 import MenuTextcard from "../components/MenuTextcard";
 import MenuCardMini from "../components/MenuCardMini";
-import { dishes } from "../misc/Dummy";
+import { dishes, morningDish, employeeDishes } from "../misc/Dummy";
 
 export default function Meals() {
   return (
@@ -27,35 +27,40 @@ export default function Meals() {
         <MenuCard
           title="조식"
           image={undefined}
-          dish={dishes[0]}
+          dish={morningDish}
           morninginfo='학생증 필참 시 항상 무료'
           timeText="08:00~09:00"
           themeColor="#c55a11"
           themeColorBackground="#fbe5d7"
-          fallbackText={"MORNING\n꼬맹이만둣국"}
+          fallbackText={"MORNING\n학생식당"}
         />
         <MenuCardFolder
           title="학생식당"
-          description="3개의 메뉴가 있습니다"
+          description={`${dishes.length}개의 메뉴가 있습니다`}
           themeColor="#2f5597"
           themeColorBackground="#dae3f3"
           fallbackText={"LUNCH\n학생식당"}
         >
-          <MenuCardMini
-            title="조식"
-            image={undefined}
-            dish={dishes[0]}
-            morninginfo='학생증 필참 시 항상 무료'
-            timeText="08:00~09:00"
-            themeColor="#c55a11"
-            themeColorBackground="#fbe5d7"
-            fallbackText={"MORNING\n꼬맹이만둣국"}
-          />
+          {dishes.map((dish) => {
+            return (
+              <MenuCardMini
+                title={dish.name}
+                image={undefined}
+                dish={dishes[0]}
+                morninginfo='학생증 필참 시 항상 무료'
+                timeText="08:00~09:00"
+                themeColor="#c55a11"
+                themeColorBackground="#fbe5d7"
+                fallbackText={"MORNING\n꼬맹이만둣국"}
+                style={{paddingBottom: 10}}
+              />
+            )
+          })}
         </MenuCardFolder>
         <MenuCard
           title="교직원식당"
           image={undefined}
-          dish={dishes[0]}
+          dish={employeeDishes}
           morninginfo='학생증 필참 시 항상 무료'
           timeText="08:00~09:00"
           themeColor="#548235"

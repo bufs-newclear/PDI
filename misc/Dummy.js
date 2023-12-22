@@ -36,3 +36,12 @@ export const EmployeeDishes = {
     allergen: null,
     available: true,
   };
+
+export const ranking = {
+  type: 'daily',
+  data: [
+    { rank: 1, name: '옛날돈까스', likes: 240 },
+    { rank: 2, name: '짜장면', likes: 237 },
+    { rank: 3, name: '짬뽕', likes: 234 },
+  ]
+}

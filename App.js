@@ -26,11 +26,11 @@ export default function App() {
 
               switch (route.name) {
                 case "Meals":
-                  iconName = 'home';
+                  iconName = 'cutlery';
                   break;
 
                 case "Ranking":
-                  iconName = 'bar-chart';
+                  iconName = 'trophy';
                   break;
               
                 default:

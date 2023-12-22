@@ -27,7 +27,7 @@ const getMedalColor = (rank) => {
   switch(rank) {
     case 1: return 'gold';
     case 2: return 'silver';
-    case 3: return 'bronze';
+    case 3: return 'brown';
     default: return 'grey';
   }
 };
@@ -36,10 +36,17 @@ const getMedalColor = (rank) => {
 export default function Ranking() {
   return (
     <View style={styles.container}>
-    <View style={styles.header}>
-      <Icon name="crown" size={30} color="orange" />
-      <Text style={styles.headerText}>주간 랭킹</Text>
+    <View style={styles.title}>
+      <View style={{flexDirection: 'row',}}>
+      <Icon name="crown" size={30} color="orange"  />
+      <Text style={styles.titleText}>주간 랭킹</Text>
+      </View>
       <Text style={styles.subtitle}>10월 3주차</Text>
+    </View>
+    <View style={styles.header}>
+      <Text style={styles.header._rank}>순위</Text>
+      <Text style={styles.header._name}>메뉴</Text>
+      <Text style={styles.header._likes}>좋아요 수</Text>
     </View>
     <FlatList
       data={ranking['data']}
@@ -57,20 +64,53 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 15,
   },
-  header: {
-    alignItems: 'center',
+  title: {
+    alignItems: 'left', // 세로축에서 중앙 정렬
     marginBottom: 16,
+    paddingHorizontal:10,
+    paddingTop:15,
+    
   },
-  headerText: {
-    fontSize: 24,
+  titleText: {
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'orange',
   },
   subtitle: {
     fontSize: 16,
     color: 'gray',
+    paddingLeft:15,
   },
+  header:{
+    flexDirection: 'row',
+    justifyContent:"space-around",
+    _rank: {
+      fontSize:20,
+      textAlign: "center",
+      backgroundColor:"#f2f2f2",
+      paddingHorizontal:10,
+      borderRadius: 5,
+    },
+    _name: {
+      flex: 1,
+      fontSize: 20,
+      textAlign: "center",
+      backgroundColor:"#f2f2f2",
+      paddingHorizontal: 10,
+      marginHorizontal: 10,
+      borderRadius: 5,
+    },
+    _likes: {
+      fontSize: 20,
+      textAlign: "center",
+      backgroundColor: "#f2f2f2",
+      paddingHorizontal: 10,
+      borderRadius: 5,
+    },
+  },
+
   item: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -82,7 +122,7 @@ const styles = StyleSheet.create({
   name: {
     flex: 1,
     marginLeft: 8,
-    fontSize: 18,
+    fontSize: 22,
   },
   hearts: {
     fontSize: 18,

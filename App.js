@@ -46,7 +46,10 @@ export default function App() {
             component={Meals}
             options={{ headerShown: false }}
           />
-          <Tab.Screen name="주간 랭킹" component={Ranking} />
+          <Tab.Screen name="주간 랭킹" 
+            component={Ranking}
+            options={{ headerShown: false }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
   );

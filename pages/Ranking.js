@@ -1,7 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome5 } from "@expo/vector-icons";
+// import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import {
   StyleSheet,
   Text,
@@ -17,9 +18,9 @@ import { ranking } from "../misc/Dummy";
 const Item = ({ rank, name, hearts }) => (
   <View style={styles.item}>
     {/* 순위에 따른 메달 색상을 표시합니다. */}
-    <Icon name="trophy" size={24} color={getMedalColor(rank)} />
+    <FontAwesome5 name="trophy" size={24} color={getMedalColor(rank)} />
     <Text style={styles.name}>{name}</Text>
-    <Icon name="heart" size={24} color="red" />
+    <FontAwesome5 name="heart" size={24} color="red" />
     <Text style={styles.hearts}>{hearts}</Text>
   </View>
 );
@@ -38,7 +39,7 @@ export default function Ranking() {
     <View style={styles.container}>
     <View style={styles.title}>
       <View style={{flexDirection: 'row',}}>
-      <Icon name="crown" size={30} color="orange"  />
+      <FontAwesome5 name="crown" size={30} color="orange"  />
       <Text style={styles.titleText}>주간 랭킹</Text>
       </View>
       <Text style={styles.subtitle}>10월 3주차</Text>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: 40,
     padding: 15,
   },
   title: {

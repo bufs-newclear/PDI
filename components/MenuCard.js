@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Shadow } from "react-native-shadow-2";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { FontAwesome5 } from "@expo/vector-icons";
 import MenuTextcard from "./MenuTextcard";
 
 export default function MenuCard({
@@ -87,11 +87,12 @@ export default function MenuCard({
                   height: 25,
                 }}
               >
-                <Icon
-                  name={liked ? "heart" : "heart-o"}
+                <FontAwesome5
+                  name="heart"
                   size={24}
                   color="red"
                   style={styles.likeIcon}
+                  solid={liked}
                 />
               </TouchableOpacity>
               <Text>+120</Text>

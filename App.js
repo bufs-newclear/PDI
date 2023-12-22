@@ -10,23 +10,27 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { FontAwesome5 } from "@expo/vector-icons";
 import Meals from "./pages/Meals";
 import Ranking from "./pages/Ranking";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  
   return (
+    <>
+      <StatusBar />
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
+            tabBarActiveTintColor: "orange",
             tabBarIcon: ({ focused, color, size }) => {
               let iconName = 'archive';
 
               switch (route.name) {
-                case "Meals":
-                  iconName = 'cutlery';
+                case "메뉴":
+                  iconName = 'utensils';
                   break;
 
                 case "주간 랭킹":
@@ -38,11 +42,11 @@ export default function App() {
                   break;
               }
 
-              return <Icon name={iconName} size={size} color={color} />
+              return <FontAwesome5 name={iconName} size={size} color={color} />
             },
           })}
         >
-          <Tab.Screen name="Meals"
+          <Tab.Screen name="메뉴"
             component={Meals}
             options={{ headerShown: false }}
           />
@@ -52,6 +56,7 @@ export default function App() {
           />
         </Tab.Navigator>
       </NavigationContainer>
+    </>
   );
 }
 

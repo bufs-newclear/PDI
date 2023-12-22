@@ -6,10 +6,16 @@ export default function MenuTextcard({text}) {
     return (
           <View style={{
             backgroundColor: 'white',
-            width: '100%',
             borderRadius: 10,
+            marginTop: 5,
+            marginHorizontal: '2%',
+            paddingHorizontal: 15,
+            paddingVertical: 10,
         }}>
-            <Text>{text}</Text>
+            <Text style= {{
+                fontSize: 20,
+                lineHeight: 24
+            }}>{text}</Text>
         </View>
     );
 }

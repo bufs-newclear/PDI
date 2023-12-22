@@ -29,7 +29,7 @@ export default function App() {
                   iconName = 'cutlery';
                   break;
 
-                case "Ranking":
+                case "주간 랭킹":
                   iconName = 'trophy';
                   break;
               
@@ -46,7 +46,7 @@ export default function App() {
             component={Meals}
             options={{ headerShown: false }}
           />
-          <Tab.Screen name="Ranking" component={Ranking} />
+          <Tab.Screen name="주간 랭킹" component={Ranking} />
         </Tab.Navigator>
       </NavigationContainer>
   );

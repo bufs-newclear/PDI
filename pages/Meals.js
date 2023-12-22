@@ -32,7 +32,7 @@ export default function Meals() {
           timeText="08:00~09:00"
           themeColor="#c55a11"
           themeColorBackground="#fbe5d7"
-          fallbackText={"MORNING\n꼬맹이만둣국"}
+          fallbackText={"MORNING\n학생식당"}
         />
         <MenuCardFolder
           title="학생식당"

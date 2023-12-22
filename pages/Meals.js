@@ -44,14 +44,11 @@ export default function Meals() {
           {dishes.map((dish) => {
             return (
               <MenuCardMini
+                key={dish.id}
                 title={dish.name}
-                image={undefined}
                 dish={dishes[0]}
-                morninginfo='학생증 필참 시 항상 무료'
-                timeText="08:00~09:00"
-                themeColor="#c55a11"
-                themeColorBackground="#fbe5d7"
-                fallbackText={"MORNING\n꼬맹이만둣국"}
+                // morninginfo='학생증 필참 시 항상 무료'
+                // timeText="08:00~09:00"
                 style={{paddingBottom: 10}}
               />
             )

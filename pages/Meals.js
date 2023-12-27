@@ -40,6 +40,7 @@ export default function Meals() {
         <View style={styles.dateContainer}>
           <FontAwesome5 name="calendar-alt" size={20} color="black" />
           <Text style={styles.textfont}>{` ${currentDate}`}</Text>
+        </View>
       </View>
       <MenuCard
         title="조식"
@@ -81,7 +82,6 @@ export default function Meals() {
         themeColorBackground="#e2f0d9"
         fallbackText={"LUNCH\n교직원식당"}
       />
-      </View>
     </ScrollView>
   );
 }

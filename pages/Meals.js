@@ -14,9 +14,13 @@ import MenuCard from "../components/MenuCard";
 import MenuCardFolder from "../components/MenuCardFolder";
 import MenuTextcard from "../components/MenuTextcard";
 import MenuCardMini from "../components/MenuCardMini";
-import { dishes, morningDish, employeeDishes } from "../misc/Dummy";
+import { menus } from "../misc/Dummy";
 
 export default function Meals() {
+  let lunch = menus.filter((menu) => {return menu.type === "student" ? true : false});
+  let morning = menus.filter((menu) => {return menu.type === "morning" ? true : false})[0];
+  let employee = menus.filter((menu) => {return menu.type === "employee" ? true : false})[0];
+  
   return (
       <ScrollView>
         <View style={styles.starttitle}>
@@ -27,8 +31,8 @@ export default function Meals() {
         <MenuCard
           title="조식"
           image={undefined}
-          dish={morningDish}
-          morninginfo='학생증 필참 시 항상 무료'
+          dish={morning}
+          description='학생증 필참 시 항상 무료'
           timeText="08:00~09:00"
           themeColor="#c55a11"
           themeColorBackground="#fbe5d7"
@@ -36,18 +40,18 @@ export default function Meals() {
         />
         <MenuCardFolder
           title="학생식당"
-          description={`${dishes.length}개의 메뉴가 있습니다`}
+          description={`${lunch.length}개의 메뉴가 있습니다`}
           themeColor="#2f5597"
           themeColorBackground="#dae3f3"
           fallbackText={"LUNCH\n학생식당"}
         >
-          {dishes.map((dish) => {
+          {lunch.map((dish) => {
             return (
               <MenuCardMini
                 key={dish.id}
                 title={dish.name}
-                dish={dishes[0]}
-                // morninginfo='학생증 필참 시 항상 무료'
+                dish={lunch[0]}
+                // description='학생증 필참 시 항상 무료'
                 // timeText="08:00~09:00"
                 style={{paddingBottom: 10}}
               />
@@ -57,7 +61,7 @@ export default function Meals() {
         <MenuCard
           title="교직원식당"
           image={undefined}
-          dish={employeeDishes}
+          dish={employee}
           morninginfo='학생증 필참 시 항상 무료'
           timeText="08:00~09:00"
           themeColor="#548235"

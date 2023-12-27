@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 import { FontAwesome5 } from "@expo/vector-icons";
 import MenuTextcard from "./MenuTextcard";
+import { Meal } from "../entity/Meal";
 
 export default function MenuCard({
   title,
@@ -13,8 +14,18 @@ export default function MenuCard({
   image,
   themeColor,
   themeColorBackground,
-  morninginfo,
+  description,
 }) {
+  /**
+   * 식단을 카드 형태로 표시하는 컴포넌트
+   * @param {string} title - 카드의 제목으로 표시할 텍스트. 값이 falsy한 경우, 식단의 이름으로 대체됩니다.
+   * @param {Meal} dish - Meal 형의 식단 데이터. 이를 토대로 좋아요 등의 상호작용을 실시합니다.
+   * @param {string} timeText - 운영 시각, 또는 카드 우측 상단에 표시할 텍스트.
+   * @param {string} fallbackText - 사진이 주어지지 않았거나, 사진을 불러올 수 없을 때에 대신해서 표시할 텍스트
+   * @param {string} themeColor - fallbackText를 표시할 때의 글자 색
+   * @param {string} themeColorBackground - fallbackText를 표시할 때의 배경색
+   * @param {string} description - 카드 제목 아래에 표시할 텍스트
+   */
   const [liked, setLiked] = useState(false);
   const toggleLike = () => {
     setLiked(!liked);
@@ -33,7 +44,7 @@ export default function MenuCard({
     setNeutralActive(!neutralActive);
   };
 
-  title = title || dish['name'];
+  title = title || dish.name;
 
   return (
     <Shadow
@@ -77,7 +88,7 @@ export default function MenuCard({
               </Text>
               <Text style={styles.timestyle}>{timeText}</Text>
             </View>
-            <Text style={styles.minfo}>{morninginfo}</Text>
+            <Text style={styles.minfo}>{description}</Text>
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 onPress={toggleLike}
@@ -115,10 +126,7 @@ export default function MenuCard({
       {isDetailVisible && (
         <View style={styles.detailContainer}>
           <MenuTextcard
-            text={dish['menu']
-              ? dish['menu'].join('\n')
-              : dish['name']
-            }
+            text={dish.name.split(',').join('\n')}
           />
         </View>
       )}

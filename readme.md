@@ -22,6 +22,17 @@ npx expo start
   
   <img src="docs/request.PNG"/>
 
+- **화면 설계도**
+  - 최종목표(식단 정보 확보 시)              
+    
+    <img src="docs/UI.PNG" width='276' height='476'>
+
+  - 수정(식단 정보 미확보)
+    
+    <img src="docs/nodataUI.PNG" >
+
+  
+
 - **구현 프로세스 설계도**
   
   <img src="docs/process.PNG" width="500" height="300"/>

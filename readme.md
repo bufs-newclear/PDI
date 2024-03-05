@@ -17,6 +17,8 @@ npx expo start
 - **주제**: 교내 식단 정보 제공 앱
 - **기간**: 2023.11.01 ~ 현재 진행
 
+## Project Plan Docs
+- **요구사항 정의서**
   <img src="docs/request.PNG"/>
 
 ## 진행 상황 요약

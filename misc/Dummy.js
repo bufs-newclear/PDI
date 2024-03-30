@@ -46,7 +46,7 @@ export const menus = [
   new Menu(2, "남산왕돈까스", "2023-10-13", "student"),
   new Menu(3, "나가사키라멘", "2023-10-13", "student"),
   new Menu(4, "돈사태찜", "2023-10-13", "student"),
-  new Menu(5, "참치김치볶음밥*계란후라이", "2023-10-13", "student"),
+  new Menu(5, "참치김치볶음밥", "2023-10-13", "student"),
   new Menu(6, "사골만둣국,잡채말이어묵,콩나물무침,무말랭이무침,쌀밥/잡곡밥,배추김치", "2023-10-13", "employee"),
 ];
 

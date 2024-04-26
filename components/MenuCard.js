@@ -22,6 +22,7 @@ export default function MenuCard({
    * @param {Meal} dish - Meal 형의 식단 데이터. 이를 토대로 좋아요 등의 상호작용을 실시합니다.
    * @param {string} timeText - 운영 시각, 또는 카드 우측 상단에 표시할 텍스트.
    * @param {string} fallbackText - 사진이 주어지지 않았거나, 사진을 불러올 수 없을 때에 대신해서 표시할 텍스트
+   * @param {string} image - 카드에 표시할 이미지
    * @param {string} themeColor - fallbackText를 표시할 때의 글자 색
    * @param {string} themeColorBackground - fallbackText를 표시할 때의 배경색
    * @param {string} description - 카드 제목 아래에 표시할 텍스트

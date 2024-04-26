@@ -11,6 +11,17 @@ export default function MenuCardFolder({
   fallbackText,
   children,
 }) {
+  /**
+   * 식단을 펼칠 수 있는 카드 형태로 표시하는 컴포넌트.
+   * 대표 타이틀을 표시하고, 터치할 경우 폴더가 열리며 `children`의 내용을 표시함.
+   * @param {string} title - 카드의 제목으로 표시할 텍스트. 값이 falsy한 경우, 식단의 이름으로 대체됩니다.
+   * @param {string} description - 카드 제목 아래에 표시할 텍스트
+   * @param {string} image - 카드에 표시할 이미지
+   * @param {string} themeColor - fallbackText를 표시할 때의 글자 색
+   * @param {string} themeColorBackground - fallbackText를 표시할 때의 배경색
+   * @param {string} fallbackText - 카드 제목 아래에 표시할 텍스트
+   * @param {React.Component} children - 폴더가 펼쳐졌을 때에 내부에 표시할 컴포넌트
+   */
   const [isDetailVisible, setIsDetailVisible] = useState(false);
 
   const toggleDetailVisibility = () => {

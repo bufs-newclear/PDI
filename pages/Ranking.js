@@ -15,18 +15,24 @@ import {
 } from "react-native";
 import { ranking } from "../misc/Dummy";
 
-
+const localIcons = {
+  1: require('../assets/icons/number_1.png'),
+  2: require('../assets/icons/number_2.png'),
+  3: require('../assets/icons/number_3.png'),
+  4: require('../assets/icons/number_4.png'),
+  5: require('../assets/icons/number_5.png'),
+  6: require('../assets/icons/number_6.png'),
+  7: require('../assets/icons/number_7.png'),
+  8: require('../assets/icons/number_8.png'),
+  9: require('../assets/icons/number_9.png'),
+  10: require('../assets/icons/number_10.png'),
+  // ... 숫자 10까지의 이미지를 맵핑합니다.
+};
 
 const IconForRank = ({ rank }) => {
   // Map the ranks to appropriate FontAwesome icons
-  const icons = [
-    "star", "star-half-alt", "star-of-david", 
-    "star-and-crescent", "star-of-life", 
-    "star-and-crescent", "star-of-life", "star-and-crescent", "star-of-life", "star-and-crescent"
-  ];
-
-  const iconName = rank <= 10 ? icons[rank - 1] : "star"; // Fallback to 'star' for ranks above 10
-  return <FontAwesome5 name={iconName} size={24} color={getMedalColor(rank)} />;
+  const iconSource = localIcons[rank]; // 순위에 맞는 로컬 이미지를 가져옵니다.
+  return <Image source={iconSource} style={{ width: 24, height: 24 }} />;
 };
 
 const Item = ({ rank, name, hearts }) => (

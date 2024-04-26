@@ -50,7 +50,7 @@ export default function App() {
             component={Meals}
             options={{ headerShown: false }}
           />
-          <Tab.Screen name="주간 랭킹" 
+          <Tab.Screen name="역대 랭킹" 
             component={Ranking}
             options={{ headerShown: false }}
           />

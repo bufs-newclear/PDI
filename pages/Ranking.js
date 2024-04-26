@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Image } from 'react-native';
 // import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import {
   StyleSheet,
@@ -15,10 +16,22 @@ import {
 import { ranking } from "../misc/Dummy";
 
 
+
+const IconForRank = ({ rank }) => {
+  // Map the ranks to appropriate FontAwesome icons
+  const icons = [
+    "star", "star-half-alt", "star-of-david", 
+    "star-and-crescent", "star-of-life", 
+    "star-and-crescent", "star-of-life", "star-and-crescent", "star-of-life", "star-and-crescent"
+  ];
+
+  const iconName = rank <= 10 ? icons[rank - 1] : "star"; // Fallback to 'star' for ranks above 10
+  return <FontAwesome5 name={iconName} size={24} color={getMedalColor(rank)} />;
+};
+
 const Item = ({ rank, name, hearts }) => (
   <View style={styles.item}>
-    {/* 순위에 따른 메달 색상을 표시합니다. */}
-    <FontAwesome5 name="trophy" size={24} color={getMedalColor(rank)} style={{minWidth: 40}}/>
+    <IconForRank rank={rank} />
     <Text style={styles.name}>{name}</Text>
     <View style={{minWidth: 60, flexDirection: 'row',}}>
       <FontAwesome5 name="heart" size={24} color="red" solid/>
@@ -26,6 +39,7 @@ const Item = ({ rank, name, hearts }) => (
     </View>
   </View>
 );
+
 const getMedalColor = (rank) => {
   switch(rank) {
     case 1: return 'gold';
@@ -37,12 +51,13 @@ const getMedalColor = (rank) => {
 
 
 export default function Ranking() {
+  const sortedData = ranking['data'].sort((a, b) => b.likes - a.likes);
   return (
     <View style={styles.container}>
     <View style={styles.title}>
       <View style={{flexDirection: 'row',}}>
       <FontAwesome5 name="crown" size={30} color="orange"  />
-      <Text style={styles.titleText}>주간 랭킹</Text>
+      <Text style={styles.titleText}>역대 랭킹</Text>
       </View>
       <Text style={styles.subtitle}>10월 3주차</Text>
     </View>
@@ -51,12 +66,12 @@ export default function Ranking() {
       <Text style={styles.header._name}>메뉴</Text>
       <Text style={styles.header._likes}>좋아요 수</Text>
     </View>
-    <FlatList
-      data={ranking['data']}
+    <FlatList //트로피 이미지 순위
+      data={sortedData}
       renderItem={({ item, index }) => (
-        <Item rank={index + 1} name={item.name} hearts={item.hearts} />
+        <Item rank={index + 1} name={item.name} hearts={item.likes} />
       )}
-      keyExtractor={item => item.key}
+      keyExtractor={(item, index) => String(index)}
     />
   </View>
   );

@@ -92,8 +92,11 @@ export const menus = [
 export const ranking = {
   type: 'weekly',
   data: [
-    { rank: 1, name: '옛날돈까스', likes: 240 },
+    { rank: 1, name: '옛날돈까스', likes: 200 },
     { rank: 2, name: '짜장면', likes: 237 },
     { rank: 3, name: '짬뽕', likes: 234 },
+    { rank: 4, name: '탕수육', likes: 236 },
+    { rank: 4, name: '종헌국수', likes: 238 },
+    { rank: 4, name: '재엽국수', likes: 190 },
   ]
 };

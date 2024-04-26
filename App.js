@@ -1,70 +1,78 @@
+import React, { useState, useEffect } from 'react';
+import { Text } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Platform,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StatusBar, Button } from "expo-status-bar";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 import { FontAwesome5 } from "@expo/vector-icons";
 import Meals from "./pages/Meals";
 import Ranking from "./pages/Ranking";
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
-  
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  const checkLogin = async () => {
+    const token = await AsyncStorage.getItem('userToken');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+    setLoading(false);
+  };
+
+  const handleLogin = async () => {
+    const uniqueId = await Constants.deviceId;
+    const userToken = 'token_based_on_' + uniqueId; // Token 생성 로직은 서버와 협의가 필요
+    await AsyncStorage.setItem('userToken', userToken);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('userToken');
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
       <StatusBar />
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarActiveTintColor: "orange",
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName = 'archive';
-
-              switch (route.name) {
-                case "메뉴":
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarActiveTintColor: "orange",
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName = 'archive';
+                if (route.name === "메뉴") {
                   iconName = 'utensils';
-                  break;
-
-                case "주간 랭킹":
+                } else if (route.name === "역대 랭킹") {
                   iconName = 'trophy';
-                  break;
-              
-                default:
-                  iconName = 'archive';
-                  break;
-              }
-
-              return <FontAwesome5 name={iconName} size={size} color={color} />
-            },
-          })}
-        >
-          <Tab.Screen name="메뉴"
-            component={Meals}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen name="역대 랭킹" 
-            component={Ranking}
-            options={{ headerShown: false }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+                }
+                return <FontAwesome5 name={iconName} size={size} color={color} />
+              },
+            })}
+          >
+            <Tab.Screen name="메뉴"
+              component={Meals}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen name="역대 랭킹"
+              component={Ranking}
+              options={{ headerShown: false }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      )}
     </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    //App의 최상위 컨테이너
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-  },
-});
+export default App;

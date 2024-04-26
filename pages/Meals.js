@@ -46,7 +46,7 @@ export default function Meals() {
         title="조식"
         image={undefined}
         dish={morning}
-        description='학생증 필참 시 항상 무료'
+        description='학생증 필참 시 무료'
         timeText="08:00~09:00"
         themeColor="#c55a11"
         themeColorBackground="#fbe5d7"
@@ -76,8 +76,8 @@ export default function Meals() {
         title="교직원식당"
         image={undefined}
         dish={employee}
-        morninginfo='학생증 필참 시 항상 무료'
-        timeText="08:00~09:00"
+        morninginfo='학생 이용 가능'
+        timeText="11:30~13:30"
         themeColor="#548235"
         themeColorBackground="#e2f0d9"
         fallbackText={"LUNCH\n교직원식당"}

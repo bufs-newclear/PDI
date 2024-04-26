@@ -63,7 +63,7 @@ export default function MenuCardFolder({
               justifyContent: "space-between",
             }}>
               <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
-              <Text style={styles.timestyle}>08:00~09:00</Text>
+              <Text style={styles.timestyle}>10:30~18:00</Text>
             </View>
             <Text style={styles.description}>{description}</Text>
             <Text style={styles.toggledetailText}>상세정보</Text>

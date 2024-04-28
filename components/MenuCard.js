@@ -1,6 +1,8 @@
 // MenuCard.js
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+
+
 import { Shadow } from "react-native-shadow-2";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MenuTextcard from "./MenuTextcard";

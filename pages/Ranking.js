@@ -1,6 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
+//
+import React, { useState, useEffect } from "react";
+//
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Image } from 'react-native';
 // import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
@@ -35,16 +38,19 @@ const IconForRank = ({ rank }) => {
   return <Image source={iconSource} style={{ width: 24, height: 24 }} />;
 };
 
-const Item = ({ rank, name, hearts }) => (
-  <View style={styles.item}>
-    <IconForRank rank={rank} />
-    <Text style={styles.name}>{name}</Text>
-    <View style={{minWidth: 60, flexDirection: 'row',}}>
-      <FontAwesome5 name="heart" size={24} color="red" solid/>
-      <Text style={styles.hearts}>{hearts}</Text>
+const Item = ({ rank, name, hearts }) => {
+if (!name) return null;
+  return(
+    <View style={styles.item}>
+      <IconForRank rank={rank} />
+      <Text style={styles.name}>{name}</Text>
+      <View style={{minWidth: 60, flexDirection: 'row',}}>
+        <FontAwesome5 name="heart" size={24} color="red" solid/>
+        <Text style={styles.hearts}>{hearts}</Text>
+      </View>
     </View>
-  </View>
-);
+  );
+}
 
 const getMedalColor = (rank) => {
   switch(rank) {
@@ -56,8 +62,35 @@ const getMedalColor = (rank) => {
 };
 
 
+// export default function Ranking() {
+//   const sortedData = ranking['data'].sort((a, b) => b.likes - a.likes);
+//
 export default function Ranking() {
-  const sortedData = ranking['data'].sort((a, b) => b.likes - a.likes);
+  const [sortedData, setSortedData] = useState([]);
+
+  useEffect(() => {
+    if (sortedData.length === 0) {
+      sortData();
+    }
+  }, [sortedData]);
+
+  const sortData = () => {
+    // const sorted = ranking['data'].sort((a, b) => b.likes - a.likes);
+    //
+    const sorted = ranking.data.sort((a, b) => b.likes - a.likes);
+    //
+    setSortedData(sorted);
+  };
+
+  const handleLikePress = (index) => {
+    const newData = [...sortedData];
+    newData[index].likes += 1;
+    setSortedData(newData);
+    // Here you would update the like count in your backend as well
+    // This is just a frontend demonstration
+  };
+//
+
   return (
     <View style={styles.container}>
     <View style={styles.title}>
@@ -95,7 +128,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal:10,
     paddingTop:15,
-    
+
   },
   titleText: {
     fontSize: 30,

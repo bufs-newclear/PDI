@@ -11,6 +11,30 @@ import Ranking from "./pages/Ranking";
 
 const Tab = createBottomTabNavigator();
 
+//
+// 사용자 토큰 생성
+const generateUserToken = async () => {
+  const uniqueId = await Constants.deviceId;
+  return 'token_based_on_' + uniqueId; // 실제 토큰 생성 로직은 서버와 협의가 필요 // 보안 관련 주석
+  setUserToken(token);
+  fetchMenus(token); // 토큰을 fetchMenus 함수에 전달
+};
+
+// // 토큰 생성 및 저장
+// const setAuthToken = async () => {
+//   const userToken = await generateUserToken();
+//   await AsyncStorage.setItem('userToken', userToken);
+// };
+
+// 토큰 가져오기
+const getAuthToken = async () => {
+  return await AsyncStorage.getItem('userToken');
+};
+
+export { getAuthToken, generateUserToken };
+
+//
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);

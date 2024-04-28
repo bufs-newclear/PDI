@@ -15,23 +15,96 @@ import MenuCard from "../components/MenuCard";
 import MenuCardFolder from "../components/MenuCardFolder";
 import MenuTextcard from "../components/MenuTextcard";
 import MenuCardMini from "../components/MenuCardMini";
+import Constants from 'expo-constants';
 import { menus } from "../misc/Dummy";
 
+import { generateAndSetUserToken, getAuthToken } from '../App.js'; // App.js에서 필요한 함수 import
+
+// API URL 및 인증 토큰
+const BACKEND_URL = 'http://pdi-backend.com/api';
+
+// 임시 수정 ---> 주의
+
+// export default function Meals() {
+//   let lunch = menus.filter((menu) => {return menu.type === "student" ? true : false});
+//   let morning = menus.filter((menu) => {return menu.type === "morning" ? true : false})[0];
+//   let employee = menus.filter((menu) => {return menu.type === "employee" ? true : false})[0];
 export default function Meals() {
-  let lunch = menus.filter((menu) => {return menu.type === "student" ? true : false});
-  let morning = menus.filter((menu) => {return menu.type === "morning" ? true : false})[0];
-  let employee = menus.filter((menu) => {return menu.type === "employee" ? true : false})[0];
-  
+  const [menus, setMenus] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
+  const [userToken, setUserToken] = useState('');
 
   useEffect(() => {
-    const getCurrentDate = () => {
-      const date = new Date();
-      return `${date.getMonth() + 1}월 ${date.getDate()}일`;
-    };
-
     setCurrentDate(getCurrentDate());
+    generateUserToken();
   }, []);
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
+  // <---
+
+  // useEffect(() => {
+  //   const getCurrentDate = () => {
+  //     const date = new Date();
+  //     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+  //   };
+  //   //
+
+  //
+  //   setCurrentDate(getCurrentDate());
+  // }, []);
+
+  //
+  // 사용자 토큰 생성
+  const generateUserToken = async () => {
+    // 실제로 사용자 토큰을 생성하는 로직을 구현해야 합니다.
+    // 여기서는 임시로 UUID를 사용하여 토큰을 생성합니다.
+    const uniqueId = await Constants.deviceId;
+    const token = 'token_based_on_' + uniqueId;
+    setUserToken(token);
+    fetchMenus(token);
+  };
+  //
+  //
+  // 사용자 토큰 생성 및 메뉴 가져오기
+  const generateTokenAndFetchMenus = async () => {
+    await generateAndSetUserToken(); // 사용자 토큰 생성 및 저장
+    const userToken = await getAuthToken(); // 사용자 토큰 가져오기
+    fetchMenus(userToken); // 토큰을 이용하여 메뉴 가져오기
+  };
+
+  // generateTokenAndFetchMenus 함수 호출
+  generateTokenAndFetchMenus(); // 페이지 로드 시 사용자 토큰 생성 및 메뉴 가져오기
+  //
+  //
+  // API를 통해 식단 데이터 가져오는 함수
+  const fetchMenus = async (token) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/menus`, {
+        headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+      if (response.ok) {
+        const data = await response.json();
+        setMenus(data);
+      } else {
+        console.error('Failed to fetch menus:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching menus:', error);
+    }
+  };
+  //
+
+  //
+  // 필요한 식단을 필터링하여 변수에 저장
+  const lunch = menus.filter((menu) => menu.type === "student");
+  const morning = menus.find((menu) => menu.type === "morning");
+  const employee = menus.find((menu) => menu.type === "employee");
+  //
 
   return (
     <ScrollView>
@@ -105,8 +178,8 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     flexDirection: 'row',
-    alignItems: 'center', 
-  },  
+    alignItems: 'center',
+  },
   textfont: {
     fontSize: 20,
   },

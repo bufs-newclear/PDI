@@ -54,10 +54,17 @@ const getMedalColor = (rank) => {
     default: return 'grey';
   }
 };
+const formatDate = (date) => {
+  const d = new Date(date);
+  let year = d.getFullYear();
+
+  return [year];
+};
 
 
 export default function Ranking() {
   const sortedData = ranking['data'].sort((a, b) => b.likes - a.likes);
+  const currentDate = formatDate(new Date());
   return (
     <View style={styles.container}>
     <View style={styles.title}>
@@ -65,7 +72,7 @@ export default function Ranking() {
       <FontAwesome5 name="crown" size={30} color="orange"  />
       <Text style={styles.titleText}>역대 랭킹</Text>
       </View>
-      <Text style={styles.subtitle}>10월 3주차</Text>
+      <Text style={styles.subtitle}>{currentDate}</Text>
     </View>
     <View style={styles.header}>
       <Text style={styles.header._rank}>순위</Text>
@@ -103,9 +110,9 @@ const styles = StyleSheet.create({
     color: 'orange',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 20,
     color: 'gray',
-    paddingLeft:15,
+    paddingLeft:10,
   },
   header:{
     flexDirection: 'row',

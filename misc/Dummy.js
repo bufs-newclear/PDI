@@ -4,7 +4,7 @@ const porkCutletImage = require('./img/Pork_Cutlet.webp');
 
 // 식단 정보를 담는 클래스
 class Menu {
-  constructor(id, name, date, type, dishes, image = null, price = null, allergen = null, available = true, like = like_sample, myLike = null) {
+  constructor(id, name, date, type, dishes, image = null, price = null, allergen = null, available = true, likeCnt = like_sample, myLike = null) {
     this.id = id;
     this.name = name;  // NOTE: 교직원식당과 같이 여러 항목이 있는 경우 콤마(,)로 나누어 저장. 필요 시 split하여 사용
     this.date = date;
@@ -13,7 +13,7 @@ class Menu {
     this.price = price;
     this.allergen = allergen;
     this.available = available;
-    this.like = like;
+    this.likeCnt = likeCnt;
     this.myLike = myLike;
   }
 
@@ -27,7 +27,7 @@ class Menu {
       this.dislike();
     }
     if (kind in this.like) {
-      return ++this.like[kind];
+      return ++this.likeCnt[kind];
     }
   }
 
@@ -36,7 +36,7 @@ class Menu {
      * 식단을 좋아요 취소한다. 좋아요가 없는 경우 무효하다
      */
     //TODO: 유효성 체크
-    return --this.like[this.myLike];
+    return --this.likeCnt[this.myLike];
   }
 }
 

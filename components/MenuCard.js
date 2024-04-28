@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Shadow } from "react-native-shadow-2";
-import { FontAwesome5 } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/FontAwesome";
 import MenuTextcard from "./MenuTextcard";
 import { Meal } from "../entity/Meal";
 
@@ -38,7 +38,7 @@ export default function MenuCard({
   };
   const [sadActive, setSadActive] = useState(false); //슬픈표정 활성화 함수
   const toggleSad = () => {
-    setSadActive(!sadActive); 
+    setSadActive(!sadActive);
   };
   const [neutralActive, setNeutralActive] = useState(false); //무표정 활성화 함수
   const toggleNeutral = () => {
@@ -91,34 +91,16 @@ export default function MenuCard({
             </View>
             <Text style={styles.minfo}>{description}</Text>
             <View style={styles.rowContainer}>
-              <TouchableOpacity
-                onPress={toggleLike}
-                style={{
-                  borderColor: "red",
-                  width: 25,
-                  height: 25,
-                }}
-              >
-                <FontAwesome5
-                  name="heart"
+              <TouchableOpacity onPress={toggleLike} style={styles.likeButton}>
+                <Icon
+                  name={liked ? "heart" : "heart-o"} // "heart" is filled and "heart-o" is outlined
                   size={24}
-                  color="red"
-                  style={styles.likeIcon}
-                  solid={liked}
+                  color="red" // This sets the default color to red
                 />
               </TouchableOpacity>
-              <Text>+120</Text>
-
-              <TouchableOpacity onPress={toggleNeutral} style={[styles.reactButton,neutralActive ? styles.neutralActive : null]}>
-                {/* TODO: 활성 여부에 따라 배경색 변경 */}
-                <Text style={{ fontSize: 24 }}>😐</Text>
-                <Text>+0</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={toggleSad}  style={[styles.reactButton, sadActive ? styles.sadActive : null,] }>
-                <Text style={{ fontSize: 24 }}>😢</Text>
-                <Text>+0</Text>
-              </TouchableOpacity>
+              <Text style={[styles.likesCount, liked && styles.likedText]}>
+                +120
+              </Text>
             </View>
             <Text style={styles.toggledetailText}>상세정보</Text>
           </View>
@@ -126,9 +108,7 @@ export default function MenuCard({
       </TouchableOpacity>
       {isDetailVisible && (
         <View style={styles.detailContainer}>
-          <MenuTextcard
-            text={dish.name.split(',').join('\n')}
-          />
+          <MenuTextcard text={dish.name.split(",").join("\n")} />
         </View>
       )}
     </Shadow>
@@ -164,8 +144,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 10,
   },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10, // Add padding vertically if needed
+  },
   likeIcon: {
     position: "absolute",
+  },
+  likeButton: {
+    marginRight: 8, // Adds space after the heart icon
+  },
+  likesCount: {
+    fontSize: 18,
+    color: "black", // Default color is black
+  },
+  likedText: {
+    color: "red", // When liked, the color will be red
   },
   reactButton: {
     minWidth: 63,
@@ -177,13 +172,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7,
     marginLeft: 5,
     justifyContent: "space-between",
-    
   },
   sadActive: {
-    backgroundColor: 'brown', // 활성화됐을 때의 배경색
+    backgroundColor: "brown", // 활성화됐을 때의 배경색
   },
   neutralActive: {
-    backgroundColor: 'brown', // 활성화됐을 때의 배경색
+    backgroundColor: "brown", // 활성화됐을 때의 배경색
   },
   menuName: {
     fontSize: 28,

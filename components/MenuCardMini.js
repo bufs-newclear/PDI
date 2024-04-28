@@ -39,44 +39,17 @@ export default function MenuCardMini({
   return (
     <View style={styles.container}>
       <View style={styles.infoArea}>
-        <View style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}>
-          <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
-          <Text style={styles.timestyle}>{timeText}</Text>
-        </View>
-        <Text style={styles.minfo}>{description}</Text> 
-          <View style={styles.rowContainer}>
-            <TouchableOpacity
-              onPress={toggleLike}
-              style={{
-                borderColor: "red",
-                width: 25,
-                height: 25,
-              }}
-            >
-              <Icon
-                name={liked ? "heart" : "heart-o"}
-                size={24}
-                color="red"
-                style={styles.likeIcon}
-              />
-            </TouchableOpacity>
-            <Text>+120</Text>
-
-            <TouchableOpacity onPress={toggleNeutral} style={[styles.reactButton,neutralActive ? styles.neutralActive : null]}>
-              {/* TODO: 활성 여부에 따라 배경색 변경 */}
-              <Text style={{ fontSize: 24 }}>😐</Text>
-              <Text>+0</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={toggleSad}  style={[styles.reactButton, sadActive ? styles.sadActive : null,] }>
-              <Text style={{ fontSize: 24 }}>😢</Text>
-              <Text>+0</Text>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.headerRow}>
+        <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
+        <TouchableOpacity onPress={toggleLike} style={styles.likeButton}>
+          <Icon
+            name={liked ? "heart" : "heart-o"}
+            size={24}
+            color="red"
+          />
+        </TouchableOpacity>
+        <Text style={[styles.likesCount, liked && styles.likedText]}>+120</Text>
+      </View>
       </View>
     </View>
   );
@@ -85,7 +58,6 @@ export default function MenuCardMini({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    // width: "100%",
     height: 100,
     borderRadius: 10,
     overflow: "hidden",
@@ -94,19 +66,31 @@ const styles = StyleSheet.create({
   },
   infoArea: {
     flex: 1,
-    flexDirection: "column", // Change to column for vertical arrangement
-    justifyContent: "space-between",
     paddingHorizontal: 15,
     paddingTop: 10,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   menuName: {
     fontSize: 24,
     flexGrow: 1,
-    overflow: "hidden",
   },
-  minfo:{
-    fontSize:16,
-    position:"absolute",
+  likeButton: {
+    padding: 8, // Add padding for larger touch area
+  },
+  likesCount: {
+    fontSize: 18,
+    color: 'black', // default color
+  },
+  likedText: {
+    color: 'red', // color when liked
+  },
+  minfo: {
+    fontSize: 16,
+    position: "absolute",
     bottom: 20,
     left: 15,
   },

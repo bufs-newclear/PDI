@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Image } from 'react-native';
 // import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import {
   StyleSheet,
@@ -14,11 +15,29 @@ import {
 } from "react-native";
 import { ranking } from "../misc/Dummy";
 
+const localIcons = {
+  1: require('../assets/icons/number_1.png'),
+  2: require('../assets/icons/number_2.png'),
+  3: require('../assets/icons/number_3.png'),
+  4: require('../assets/icons/number_4.png'),
+  5: require('../assets/icons/number_5.png'),
+  6: require('../assets/icons/number_6.png'),
+  7: require('../assets/icons/number_7.png'),
+  8: require('../assets/icons/number_8.png'),
+  9: require('../assets/icons/number_9.png'),
+  10: require('../assets/icons/number_10.png'),
+  // ... 숫자 10까지의 이미지를 맵핑합니다.
+};
+
+const IconForRank = ({ rank }) => {
+  // Map the ranks to appropriate FontAwesome icons
+  const iconSource = localIcons[rank]; // 순위에 맞는 로컬 이미지를 가져옵니다.
+  return <Image source={iconSource} style={{ width: 24, height: 24 }} />;
+};
 
 const Item = ({ rank, name, hearts }) => (
   <View style={styles.item}>
-    {/* 순위에 따른 메달 색상을 표시합니다. */}
-    <FontAwesome5 name="trophy" size={24} color={getMedalColor(rank)} style={{minWidth: 40}}/>
+    <IconForRank rank={rank} />
     <Text style={styles.name}>{name}</Text>
     <View style={{minWidth: 60, flexDirection: 'row',}}>
       <FontAwesome5 name="heart" size={24} color="red" solid/>
@@ -26,6 +45,7 @@ const Item = ({ rank, name, hearts }) => (
     </View>
   </View>
 );
+
 const getMedalColor = (rank) => {
   switch(rank) {
     case 1: return 'gold';
@@ -37,12 +57,13 @@ const getMedalColor = (rank) => {
 
 
 export default function Ranking() {
+  const sortedData = ranking['data'].sort((a, b) => b.likes - a.likes);
   return (
     <View style={styles.container}>
     <View style={styles.title}>
       <View style={{flexDirection: 'row',}}>
       <FontAwesome5 name="crown" size={30} color="orange"  />
-      <Text style={styles.titleText}>주간 랭킹</Text>
+      <Text style={styles.titleText}>역대 랭킹</Text>
       </View>
       <Text style={styles.subtitle}>10월 3주차</Text>
     </View>
@@ -51,12 +72,12 @@ export default function Ranking() {
       <Text style={styles.header._name}>메뉴</Text>
       <Text style={styles.header._likes}>좋아요 수</Text>
     </View>
-    <FlatList
-      data={ranking['data']}
+    <FlatList //트로피 이미지 순위
+      data={sortedData}
       renderItem={({ item, index }) => (
-        <Item rank={index + 1} name={item.name} hearts={item.hearts} />
+        <Item rank={index + 1} name={item.name} hearts={item.likes} />
       )}
-      keyExtractor={item => item.key}
+      keyExtractor={(item, index) => String(index)}
     />
   </View>
   );

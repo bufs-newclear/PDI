@@ -46,7 +46,7 @@ export const menus = [
   new Menu(2, "남산왕돈까스", "2023-10-13", "student"),
   new Menu(3, "나가사키라멘", "2023-10-13", "student"),
   new Menu(4, "돈사태찜", "2023-10-13", "student"),
-  new Menu(5, "참치김치볶음밥*계란후라이", "2023-10-13", "student"),
+  new Menu(5, "참치김치볶음밥", "2023-10-13", "student"),
   new Menu(6, "사골만둣국,잡채말이어묵,콩나물무침,무말랭이무침,쌀밥/잡곡밥,배추김치", "2023-10-13", "employee"),
 ];
 
@@ -92,8 +92,11 @@ export const menus = [
 export const ranking = {
   type: 'weekly',
   data: [
-    { rank: 1, name: '옛날돈까스', likes: 240 },
+    { rank: 1, name: '옛날돈까스', likes: 200 },
     { rank: 2, name: '짜장면', likes: 237 },
     { rank: 3, name: '짬뽕', likes: 234 },
+    { rank: 4, name: '탕수육', likes: 236 },
+    { rank: 4, name: '종헌국수', likes: 238 },
+    { rank: 4, name: '재엽국수', likes: 190 },
   ]
 };

@@ -8,7 +8,7 @@ import Constants from 'expo-constants';
 import { FontAwesome5 } from "@expo/vector-icons";
 import Meals from "./pages/Meals";
 import Ranking from "./pages/Ranking";
-import { HelloWidgetPreviewScreen } from "./widget/android_widget"; // Import the HelloWidgetPreviewScreen
+import { ShikdanWidgetPreviewScreen } from "./widget/android_widget"; // Import the HelloWidgetPreviewScreen
 
 const Tab = createBottomTabNavigator();
 
@@ -71,7 +71,7 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Tab.Screen name="위젯 미리보기"
-            component={HelloWidgetPreviewScreen}
+            component={ShikdanWidgetPreviewScreen}
             options={{ headerShown: false }}
           />
         </Tab.Navigator>

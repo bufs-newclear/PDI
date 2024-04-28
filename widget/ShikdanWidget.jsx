@@ -17,7 +17,7 @@ const formatDate = (date) => {
   return [year, month, day].join('-');
 };
 
-export function HelloWidget() {
+export function ShikdanWidget() {
   const currentDate = formatDate(new Date());
   // "employee" 타입을 제외합니다.
   const filteredMenus = menus.filter(menu => menu.type !== 'employee');
@@ -36,7 +36,7 @@ export function HelloWidget() {
 
             <FlexWidget style={styles.flexwidget}>
               <ImageWidget image={require('../assets/icons/heart.png')} imageWidth={15} imageHeight={15} marginHorizontal={8} />
-              <TextWidget text={`+ ${menu.likeCnt.like}`} style={styles.itemStyle} />
+              <TextWidget text={`${menu.likeCnt.like}`} style={{width: 30, textAlign: 'right', ...styles.itemStyle}} />
             </FlexWidget>
           </FlexWidget>
         ))}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     height: 'match_parent',
     width: 'match_parent',
-    backgroundColor: '#A9BCF5',
+    backgroundColor: '#A9E2F3',
   },
   dateStyle: {
     fontSize: 16,

@@ -2,13 +2,13 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WidgetPreview } from 'react-native-android-widget';
 
-import { HelloWidget } from './HelloWidget';
+import { ShikdanWidget } from './ShikdanWidget';
 
-export function HelloWidgetPreviewScreen() {
+export function ShikdanWidgetPreviewScreen() {
   return (
     <View style={styles.container}>
       <WidgetPreview
-        renderWidget={() => <HelloWidget />}
+        renderWidget={() => <ShikdanWidget />}
         width={320}
         height={200}
       />

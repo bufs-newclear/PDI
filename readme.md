@@ -3,7 +3,9 @@
 ## Build
 ```bash
 npm install
-npx expo start
+eas build --profile development --platform android  # 필요에 따라 --local 옵션 추가 가능
+# 빌드된 APK 설치 후
+npx expo start --dev-client
 ```
 
 # 교내 식단 정보 제공 앱 프로젝트

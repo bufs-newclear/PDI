@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://pditest.0w0.kr"

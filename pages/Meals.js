@@ -16,12 +16,11 @@ import MenuCardFolder from "../components/MenuCardFolder";
 import MenuTextcard from "../components/MenuTextcard";
 import MenuCardMini from "../components/MenuCardMini";
 import Constants from 'expo-constants';
+import { BACKEND_URL } from "../config.js";
 import { menus } from "../misc/Dummy";
 
 import { generateAndSetUserToken, getAuthToken } from '../App.js'; // App.js에서 필요한 함수 import
 
-// API URL 및 인증 토큰
-const BACKEND_URL = 'http://pdi-backend.com/api';
 
 // 임시 수정 ---> 주의
 

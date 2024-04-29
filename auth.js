@@ -3,13 +3,13 @@ import * as Crypto from "expo-crypto"
 import { BACKEND_URL } from './config';
 import { api } from './misc/tools';
 
+
 // 사용자 토큰 생성
 const generateUserToken = async () => {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   for(let counter = 0; counter < 24; counter++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
-    counter += 1;
   }
 
   return result;
@@ -20,7 +20,7 @@ const register = async (userToken) => {
   try {
     const res = await api(`${BACKEND_URL}/users/login/`, {
       username: userToken,
-      password: Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
+      password: await Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
     });
 
     if (!res.ok) {
@@ -60,7 +60,7 @@ export const getAuthToken = async () => {
   try {
     const res = await api(`${BACKEND_URL}/users/login/`, {
       username: userToken,
-      password: Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
+      password: await Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
     });
 
     if (!res.ok) {
@@ -77,3 +77,4 @@ export const getAuthToken = async () => {
     throw err;
   }
 }
+

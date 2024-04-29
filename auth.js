@@ -70,7 +70,8 @@ export const getAuthToken = async () => {
     }
 
     const resData = await res.json();
-    
+    await AsyncStorage.setItem('authToken', resData.token);
+
     return resData.token;
   } catch (err) {
     console.error('Error logging in:', err);

@@ -19,28 +19,45 @@ const formatDate = (date) => {
 
 export function ShikdanWidget() {
   const currentDate = formatDate(new Date());
-  // "employee" 타입을 제외합니다.
-  const filteredMenus = menus.filter(menu => menu.type !== 'employee');
+
+  // 학생과 교직원 필터링
+  const studentMenus = menus.filter(menu => menu.type === 'student');
+  const employeeMenus = menus.filter(menu => menu.type === 'employee');
 
   return (
-    <FlexWidget
-      style={styles.widgetStyle}
-    >
+    <FlexWidget style={styles.widgetStyle}>
       <TextWidget text={currentDate} style={styles.dateStyle} />
+
       <TextWidget text={"학생식당"} style={styles.titleStyle} />
-
       <ListWidget style={styles.listStyle}>
-        {filteredMenus.map((menu, index) => (
+        {studentMenus.map((menu, index) => (
           <FlexWidget key={index} style={styles.flexWidgetStyle}>
-            <TextWidget text={`- ${menu.name}`} style={{flexShrink: 0, ...styles.itemStyle}} />
-
+            <TextWidget text={`- ${menu.name}`} style={styles.itemStyle} />
             <FlexWidget style={styles.flexwidget}>
-              <ImageWidget image={require('../assets/icons/heart.png')} imageWidth={15} imageHeight={15} marginHorizontal={8} />
-              <TextWidget text={`${menu.likeCnt.like}`} style={{width: 30, textAlign: 'right', ...styles.itemStyle}} />
+              <ImageWidget 
+                image={require('../assets/icons/heart.png')} 
+                imageWidth={15} 
+                imageHeight={15} 
+                marginHorizontal={8} 
+              />
+              <TextWidget text={`${menu.likeCnt.like}`} style={styles.likeTextStyle} />
             </FlexWidget>
           </FlexWidget>
         ))}
       </ListWidget>
+
+      {employeeMenus.length > 0 && (
+        <FlexWidget style={{width:'match_parent'}}>
+          <TextWidget text={"교직원식당"} style={styles.titleStyle} />
+          <ListWidget style={styles.listStyle}>
+            {employeeMenus.map((menu, index) => (
+              <FlexWidget key={index} style={styles.flexWidgetStyle}>
+               <TextWidget text={` ${menu.name.split(',').slice(0, 3).join(', ')}`} style={styles.employeeitemStyle} />
+              </FlexWidget>
+            ))}
+          </ListWidget>
+        </FlexWidget>
+      )}
     </FlexWidget>
   );
 }
@@ -74,32 +91,41 @@ const styles = StyleSheet.create({
     flex:1,
     fontWeight: 'bold',
   },
+  employeeitemStyle: {
+    fontSize: 17,
+    color: '#333333',
+    flex:1,
+    fontWeight: 'bold',
+  },
   listStyle: {
-    height: 'match_parent',
+    height: 60,
     width: 'match_parent',
   },
   flexWidgetStyle: {
     flexDirection: 'row',
-    alignItems: 'center',  // 항목을 세로 중심에 맞춤
+    alignItems: 'center',
     justifyContent: 'space-between',
     flexGrow: 0,
     width: 'match_parent',
-    marginTop: 4,  // 각 메뉴 항목 사이의 간격
+    marginTop: 4,
     marginHorizontal: 6,
   },
   flexwidget:{
     justifyContent: 'flex-end',
     flexDirection: 'row',
-    alignItems: 'center',  // 항목을 세로 중심에 맞춤
+    alignItems: 'center',
     flex: 1,
-    flexBasis: 0, 
-    
-    // width: 120,
+    flexBasis: 0,
+  },
+  likeTextStyle: {
+    width: 30,
+    textAlign: 'right',
+    fontSize: 20,
+    color: '#333',
   },
   heartStyle: {
     width: 24,
     height: 24,
     marginRight: 8,
   },
-  
 });

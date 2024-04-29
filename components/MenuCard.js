@@ -38,14 +38,7 @@ export default function MenuCard({
   const toggleDetailVisibility = () => {
     setIsDetailVisible(!isDetailVisible);
   };
-  const [sadActive, setSadActive] = useState(false); //슬픈표정 활성화 함수
-  const toggleSad = () => {
-    setSadActive(!sadActive);
-  };
-  const [neutralActive, setNeutralActive] = useState(false); //무표정 활성화 함수
-  const toggleNeutral = () => {
-    setNeutralActive(!neutralActive);
-  };
+
 
   title = title || dish.name;
 

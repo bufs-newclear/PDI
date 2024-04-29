@@ -1,38 +1,21 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Shadow } from "react-native-shadow-2";
 
 export default function MenuCardMini({
   title,
   dish,
-  timeText,
-  description,
 }) {
   /**
    * 식단을 이미지 없이 작은 카드 형태로 표시하는 컴포넌트
    * @param {string} title - 카드의 제목으로 표시할 텍스트. 값이 falsy한 경우, 식단의 이름으로 대체됩니다.
    * @param {Meal} dish - Meal 형의 식단 데이터. 이를 토대로 좋아요 등의 상호작용을 실시합니다.
-   * @param {string} timeText - 운영 시각, 또는 카드 우측 상단에 표시할 텍스트.
-   * @param {string} description - 카드 제목 아래에 표시할 텍스트
    */
   const [liked, setLiked] = useState(false);
   const toggleLike = () => {
     setLiked(!liked);
   };
-  const [isDetailVisible, setIsDetailVisible] = useState(false);
 
-  const toggleDetailVisibility = () => {
-    setIsDetailVisible(!isDetailVisible);
-  };
-  const [sadActive, setSadActive] = useState(false); //슬픈표정 활성화 함수
-  const toggleSad = () => {
-    setSadActive(!sadActive); 
-  };
-  const [neutralActive, setNeutralActive] = useState(false); //무표정 활성화 함수
-  const toggleNeutral = () => {
-    setNeutralActive(!neutralActive);
-  };
 
   title = title || dish.name;
 

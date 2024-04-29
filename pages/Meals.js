@@ -5,9 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
-  Platform,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

@@ -1,7 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StatusBar } from "expo-status-bar";
-//
 import React, { useState, useEffect } from "react";
 //
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -12,9 +8,6 @@ import {
   Text,
   View,
   FlatList,
-  Platform,
-  TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import { ranking } from "../misc/Dummy";
 
@@ -52,14 +45,6 @@ if (!name) return null;
   );
 }
 
-const getMedalColor = (rank) => {
-  switch(rank) {
-    case 1: return 'gold';
-    case 2: return 'silver';
-    case 3: return '#815353';
-    default: return 'grey';
-  }
-};
 
 
 // export default function Ranking() {

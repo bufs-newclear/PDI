@@ -3,8 +3,6 @@ import { Text } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar, Button } from "expo-status-bar";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
 import { FontAwesome5 } from "@expo/vector-icons";
 import Meals from "./pages/Meals";
 import Ranking from "./pages/Ranking";

@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   titleStyle: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#0000FF',
   },
   itemStyle: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#333333',
     flex:1,
     fontWeight: 'bold',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   listStyle: {
-    height: 60,
+    height: 80,
     width: 'match_parent',
   },
   flexWidgetStyle: {

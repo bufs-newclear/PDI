@@ -36,7 +36,7 @@ const register = async (userToken) => {
   }
 }
 
-// 사용자 토큰을 반환합니다. 저장된 토큰이 없다면 새로 생성한 뒤 계정을 생성하고 반환합니다.
+// 사용자 토큰(ID)을 반환합니다. 저장된 토큰이 없다면 새로 생성한 뒤 계정을 생성하고 반환합니다.
 export const getUserToken = async () => {
   const userToken = await AsyncStorage.getItem('userToken');
 
@@ -46,14 +46,14 @@ export const getUserToken = async () => {
     const newToken = await generateUserToken();
     
     await register(newToken);
-    await AsyncStorage.setItem('userToken', userToken);
+    await AsyncStorage.setItem('userToken', newToken);
 
     return newToken;
   }
 };
 
 
-// 로그인을 수행한 뒤 인증 토큰을 반환합니다.
+// 로그인(실제 )을 수행한 뒤 인증 토큰을 반환합니다.
 export const getAuthToken = async () => {
   const userToken = await getUserToken();
 

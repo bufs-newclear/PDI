@@ -69,7 +69,8 @@ export const getAuthToken = async () => {
       throw new Error(err.message || '로그인할 수 없습니다');
     }
 
-    const resData = await responce.json();
+    const resData = await res.json();
+    
     return resData.token;
   } catch (err) {
     console.error('Error logging in:', err);

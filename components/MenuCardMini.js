@@ -23,7 +23,7 @@ export default function MenuCardMini({
     <View style={styles.container}>
       <View style={styles.infoArea}>
       <View style={styles.headerRow}>
-        <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
+        <Text numberOfLines={2} style={styles.menuName}>{title}</Text>
         <TouchableOpacity onPress={toggleLike} style={styles.likeButton}>
           <Icon
             name={liked ? "heart" : "heart-o"}

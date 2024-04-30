@@ -1,6 +1,6 @@
 import moment from "moment";
 import { BACKEND_URL } from "../config";
-import { api } from "../misc/tools";
+import { api, api_get } from "../misc/tools";
 import { getAuthToken } from "../auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -22,19 +22,15 @@ export class Meal {
 
   static async fetchDaily(date=moment.utc()) {
     const dateString = date.local().format('YYYY-MM-DD');
-    const res = await api(
-      `${BACKEND_URL}/meals/meal`,
-      {
-        sinceDate: dateString,
-        untilDate: dateString,
-      }
+    const res = await api_get(
+      `${BACKEND_URL}/meals/meal/?sinceDate=${dateString}&untilDate=${dateString}`
     );
 
     if (!res.ok) {
       throw new Error(`일간 식단을 가져올 수 없습니다 [${res.status}] : ${res.json}`);
     }
 
-    const data = res.json();
+    const data = await res.json();
     let meals = [];
 
     data.forEach(meal => {

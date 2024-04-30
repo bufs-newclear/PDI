@@ -103,7 +103,7 @@ export default function MenuCard({
       </TouchableOpacity>
       {isDetailVisible && (
         <View style={styles.detailContainer}>
-          <MenuTextcard text={dish.name.split(",").join("\n")} />
+          <MenuTextcard text={dish.name} />
         </View>
       )}
     </Shadow>

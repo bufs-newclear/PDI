@@ -1,6 +1,6 @@
 // const moment = require('moment');
 const like_sample = { like: 10, neutral: 5, bad: 3 };
-const porkCutletImage = require('./img/Pork_Cutlet.webp');
+
 
 // 식단 정보를 담는 클래스
 class Menu {

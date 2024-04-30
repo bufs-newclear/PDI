@@ -14,29 +14,9 @@ import Toast from 'react-native-root-toast';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    checkLogin();
-  }, []);
-
-  const checkLogin = async () => {
-    try {
-      await getAuthToken();
-    } catch (err) {
-      Toast.show('인증 토큰을 가져오는 데에 실패했습니다.')
-      Toast.show(err)
-    }
-    setLoading(false);
-  };
-
-
   return (
     <RootSiblingParent>
       <StatusBar />
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
         <NavigationContainer>
           <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -62,7 +42,6 @@ const App = () => {
             />
           </Tab.Navigator>
         </NavigationContainer>
-      )}
     </RootSiblingParent>
   );
 };

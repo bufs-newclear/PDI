@@ -1,31 +1,101 @@
+import moment from "moment";
+import { BACKEND_URL } from "../config";
+import { api } from "../misc/tools";
+import { getAuthToken } from "../auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export class Meal {
-  constructor() {
-    this.id = 0;
-    this.name = "";
-    this.date = "";
-    this.image = null;
-    this.price = null;
-    this.allergen = null;
-    this.available = null;
-    this.like = {
-      like: 0,
-      neutral: 0,
-      bad: 0,
-    };
+  constructor(id, name, date, type, like = 0, myLike = false) {
+    this.id = id;
+    this.name = name;  // NOTE: 교직원식당과 같이 여러 항목이 있는 경우 콤마(,)로 나누어 저장. 필요 시 split하여 사용
+    this.date = date;
+    this.type = type; // 'morning' or 'lunch' or 'employee'
+    this.like = like;
+    this.myLike = false;
+    // 이하 항목은 학교측 정보제공 불가능으로 보류
+    // this.image = image;
+    // this.price = price;
+    // this.allergen = allergen;
+    // this.available = available;
+    // this.myLike = myLike;
   }
 
-  static fetchFromId(id) {
-    let meal = new Meal();
-    // TODO: API에서 식단 정보를 가져온다
-    return meal;
+  static async fetchDaily(date=moment.utc()) {
+    const dateString = date.local().format('YYYY-MM-DD');
+    const res = await api(
+      `${BACKEND_URL}/meals/meal`,
+      {
+        sinceDate: dateString,
+        untilDate: dateString,
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`일간 식단을 가져올 수 없습니다 [${res.status}] : ${res.json}`);
+    }
+
+    const data = res.json();
+    let meals = [];
+
+    data.forEach(meal => {
+      meals.push(new Meal(
+        meal.id,
+        meal.name,
+        meal.date,
+        meal.meal_type,
+        meal.like_count
+      ))
+    });
+
+    return meals;
   }
 
-  like() {
-    // TODO: API로 식단 좋아요를 보낸다
-    this.like++;
+  // static fetchFromId(id, date) {
+  //   let meal = new Meal();
+  //   // TODO: API에서 식단 정보를 가져온다
+  //   return meal;
+  // }
+
+  async like() {
+    /**
+     * 식단을 좋아요한다.
+     * TODO: 이미 좋아요를 한 경우, 기존의 좋아요를 덮어씌운다
+     */
+    if (this.myLike !== false) {
+      this.dislike();
+    }
+
+    const token = await getAuthToken();
+    const res = await api(
+      `${BACKEND_URL}/meals/meal`,
+      { meal: this.id },
+      { Authorization: `Token ${token}`}
+    );
+
+    if (!res.ok) {
+      throw new Error(`일간 식단을 가져올 수 없습니다 [${res.status}] : ${res.json}`);
+    }
+
+    this.myLike = true;
+    return ++this.like;
   }
 
-  dislike() {
-    // TODO: API로 식단 좋아요를 취소한다
+  async dislike() {
+    /**
+     * 식단을 좋아요 취소한다. 좋아요가 없는 경우 무효하다
+     */
+    const token = await getAuthToken();
+    const res = await api(
+      `${BACKEND_URL}/meals/meal`,
+      { meal: this.id },
+      { Authorization: `Token ${token}`}
+    );
+
+    if (!res.ok) {
+      throw new Error(`일간 식단을 가져올 수 없습니다 [${res.status}] : ${res.json}`);
+    }
+
+    this.myLike = false;
+    return --this.like;
   }
 };

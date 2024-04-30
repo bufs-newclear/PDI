@@ -67,15 +67,6 @@ export default function Ranking() {
     setSortedData(sorted);
   };
 
-  const handleLikePress = (index) => {
-    const newData = [...sortedData];
-    newData[index].likes += 1;
-    setSortedData(newData);
-    // Here you would update the like count in your backend as well
-    // This is just a frontend demonstration
-  };
-//
-
   return (
     <View style={styles.container}>
     <View style={styles.title}>

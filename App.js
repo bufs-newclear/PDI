@@ -22,7 +22,7 @@ const App = () => {
 
   const checkLogin = async () => {
     try {
-      const token = await getAuthToken();
+      await getAuthToken();
     } catch (err) {
       Toast.show('인증 토큰을 가져오는 데에 실패했습니다.')
       Toast.show(err)

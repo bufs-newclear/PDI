@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+
 export default function MenuCardMini({
   title,
   dish,
@@ -12,10 +13,21 @@ export default function MenuCardMini({
    * @param {Meal} dish - Meal 형의 식단 데이터. 이를 토대로 좋아요 등의 상호작용을 실시합니다.
    */
   const [liked, setLiked] = useState(false);
-  const toggleLike = () => {
-    setLiked(!liked);
+  const [likes, setLikes] = useState(dish.likeCount);
+  
+  const toggleLike = async () => {
+    try {
+      if (liked) {
+        await dish.dislike();
+      } else {
+        await dish.like();
+      }
+      setLiked(dish.myLike);  // Update local state based on the Meal object state
+      setLikes(dish.likeCount);
+    } catch (error) {
+      console.error('Error toggling like:', error.message);
+    }
   };
-
 
   title = title || dish.name;
 
@@ -31,7 +43,7 @@ export default function MenuCardMini({
             color="red"
           />
         </TouchableOpacity>
-        <Text style={[styles.likesCount, liked && styles.likedText]}>+120</Text>
+        <Text style={[styles.likesCount, liked && styles.likedText]}>{dish.likeCount}</Text>
       </View>
       </View>
     </View>

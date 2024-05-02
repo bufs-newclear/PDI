@@ -94,7 +94,7 @@ export default function MenuCard({
                 />
               </TouchableOpacity>
               <Text style={[styles.likesCount, liked && styles.likedText]}>
-                +120
+                {dish.likeCount} //-------------------------------------좋아요 고민하자
               </Text>
             </View>
             <Text style={styles.toggledetailText}>상세정보</Text>

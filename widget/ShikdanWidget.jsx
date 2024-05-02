@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     height: 'match_parent',
     width: 'match_parent',
-    backgroundColor: '#A9E2F3',
+    backgroundColor: '#ffffff',
+    borderColor: "#808080",
   },
   dateStyle: {
     fontSize: 16,
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontSize: 18,
-    color: '#0000FF',
+    color: '#777',
   },
   itemStyle: {
     fontSize: 18,

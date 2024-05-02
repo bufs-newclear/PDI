@@ -18,10 +18,11 @@ const generateUserToken = async () => {
 // 주어진 username과 password를 통해 계정을 등록합니다. 
 const register = async (userToken) => {
   try {
+    const userToken_sha256 = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
     const res = await api(`${BACKEND_URL}/users/register/`, {
       username: userToken,
-      password: await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, userToken),
-      email: 'stub@example.com'
+      password: userToken_sha256,
+      email: `${userToken}@example.com`
     });
 
     if (!res.ok) {
@@ -62,9 +63,10 @@ export const getAuthToken = async () => {
   const userToken = await getUserToken();
 
   try {
+    const userToken_sha256 = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
     const res = await api(`${BACKEND_URL}/users/login/`, {
       username: userToken,
-      password: await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
+      password: userToken_sha256
     });
 
     if (!res.ok) {

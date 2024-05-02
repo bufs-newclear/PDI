@@ -12,21 +12,22 @@ const generateUserToken = async () => {
   for(let counter = 0; counter < 24; counter++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-
   return result;
 };
   
 // 주어진 username과 password를 통해 계정을 등록합니다. 
 const register = async (userToken) => {
   try {
-    const res = await api(`${BACKEND_URL}/users/login/`, {
+    const res = await api(`${BACKEND_URL}/users/register/`, {
       username: userToken,
-      password: await Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
+      password: await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, userToken),
+      email: 'stub@example.com'
     });
 
     if (!res.ok) {
       // Handle error responce
       const err = await res.json();
+      console.error(res.status)
       throw new Error(err.message || '계정을 생성할 수 없습니다');
     }
 
@@ -46,6 +47,7 @@ export const getUserToken = async () => {
   } else {
     const newToken = await generateUserToken();
     
+    console.log(`Trying to register...`)
     await register(newToken);
     await AsyncStorage.setItem('userToken', newToken);
 
@@ -62,12 +64,13 @@ export const getAuthToken = async () => {
   try {
     const res = await api(`${BACKEND_URL}/users/login/`, {
       username: userToken,
-      password: await Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
+      password: await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, userToken)
     });
 
     if (!res.ok) {
       // Handle error responce
       const err = await res.json();
+      console.error(res.status)
       throw new Error(err.message || '로그인할 수 없습니다');
     }
 

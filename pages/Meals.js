@@ -45,17 +45,18 @@ export default function Meals() {
 
   return (
     <ScrollView>
-      <View style={styles.starttitle}>
-        <Text style={styles.titleText}>오늘의 식단</Text>
-        <View style={styles.dateContainer}>
-          <FontAwesome5 name="calendar-alt" size={20} color="black" />
-          <Text style={styles.textfont}>{` ${currentDate}`}</Text>
-        </View>
+    <View style={styles.starttitle}>
+      <Text style={styles.titleText}>오늘의 식단</Text>
+      <View style={styles.dateContainer}>
+        <FontAwesome5 name="calendar-alt" size={20} color="black" />
+        <Text style={styles.textfont}>{` ${currentDate}`}</Text>
       </View>
-      {loading ? (
-        <></>
-      ) : (
-        <>
+    </View>
+    {loading ? (
+      <Text>Loading...</Text> // 간단한 로딩 인디케이터 추가
+    ) : (
+      <>
+        {morning.length > 0 && (
           <MenuCard
             title="조식"
             image={undefined}
@@ -66,26 +67,24 @@ export default function Meals() {
             themeColorBackground="#fbe5d7"
             fallbackText={"MORNING\n학생식당"}
           />
-          <MenuCardFolder
-              title="학생식당"
-              description={`${lunch.length}개의 메뉴가 있습니다`}
-              themeColor="#2f5597"
-              themeColorBackground="#dae3f3"
-              fallbackText={"LUNCH\n학생식당"}
-            >
-              {lunch.map((dish) => {
-                return (
-                  <MenuCardMini
-                    key={dish.id}
-                    title={dish.name}
-                    dish={dish}
-                    // description='학생증 필참 시 항상 무료'
-                    // timeText="08:00~09:00"
-                    style={{paddingBottom: 10}}
-                  />
-                )
-              })}
-          </MenuCardFolder>
+        )}
+        <MenuCardFolder
+          title="학생식당"
+          description={`${lunch.length}개의 메뉴가 있습니다`}
+          themeColor="#2f5597"
+          themeColorBackground="#dae3f3"
+          fallbackText={"LUNCH\n학생식당"}
+        >
+          {lunch.map((dish) => (
+            <MenuCardMini
+              key={dish.id}
+              title={dish.name}
+              dish={dish}
+              style={{paddingBottom: 10}}
+            />
+          ))}
+        </MenuCardFolder>
+        {employee.length > 0 && (
           <MenuCard
             title="교직원식당"
             image={undefined}
@@ -96,9 +95,10 @@ export default function Meals() {
             themeColorBackground="#e2f0d9"
             fallbackText={"LUNCH\n교직원식당"}
           />
-        </>
-      )}
-    </ScrollView>
+        )}
+      </>
+    )}
+  </ScrollView>
   );
 }
 

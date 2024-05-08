@@ -1,55 +1,63 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Shadow } from "react-native-shadow-2";
 
-export default function MenuCardMini({
-  title,
-  dish,
-  timeText,
-  description,
-}) {
-  /**
-   * 식단을 이미지 없이 작은 카드 형태로 표시하는 컴포넌트
-   * @param {string} title - 카드의 제목으로 표시할 텍스트. 값이 falsy한 경우, 식단의 이름으로 대체됩니다.
-   * @param {Meal} dish - Meal 형의 식단 데이터. 이를 토대로 좋아요 등의 상호작용을 실시합니다.
-   * @param {string} timeText - 운영 시각, 또는 카드 우측 상단에 표시할 텍스트.
-   * @param {string} description - 카드 제목 아래에 표시할 텍스트
-   */
-  const [liked, setLiked] = useState(false);
-  const toggleLike = () => {
+export default function MenuCardMini({ title, dish }) {
+  const [liked, setLiked] = useState(dish.myLike);
+  const [likes, setLikes] = useState(dish.likeCount);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const toggleLike = async () => {
+    if (isUpdating) return;
+    setIsUpdating(true);
+    const currentlyLiked = liked;
+
     setLiked(!liked);
-  };
-  const [isDetailVisible, setIsDetailVisible] = useState(false);
+    setLikes(liked ? likes - 1 : likes + 1);
 
-  const toggleDetailVisibility = () => {
-    setIsDetailVisible(!isDetailVisible);
-  };
-  const [sadActive, setSadActive] = useState(false); //슬픈표정 활성화 함수
-  const toggleSad = () => {
-    setSadActive(!sadActive); 
-  };
-  const [neutralActive, setNeutralActive] = useState(false); //무표정 활성화 함수
-  const toggleNeutral = () => {
-    setNeutralActive(!neutralActive);
+    try {
+      if (currentlyLiked) {
+        await dish.dislike();
+      } else {
+        await dish.like();
+      }
+      setLiked(dish.myLike);
+      setLikes(dish.likeCount);
+    } catch (error) {
+      setLiked(currentlyLiked);
+      setLikes(currentlyLiked ? likes - 1 : likes + 1);
+      console.error('Error toggling like:', error.message);
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
-  title = title || dish.name;
+  // `*` 기준으로 이름을 분리하여 줄바꿈 처리
+  const renderTitle = (title) => {
+    const titleParts = title.split('*').map((part, index) => (
+      <Text key={index} style={styles.menuNamePart}>
+        {part.trim() + (index !== title.split('*').length - 1 ? '\n' : '')}
+      </Text>
+    ));
+
+    return <Text style={styles.menuName}>{titleParts}</Text>;
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.infoArea}>
-      <View style={styles.headerRow}>
-        <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
-        <TouchableOpacity onPress={toggleLike} style={styles.likeButton}>
-          <Icon
-            name={liked ? "heart" : "heart-o"}
-            size={24}
-            color="red"
-          />
-        </TouchableOpacity>
-        <Text style={[styles.likesCount, liked && styles.likedText]}>+120</Text>
-      </View>
+        <View style={styles.headerRow}>
+          {/* 메뉴 이름을 renderTitle 함수를 통해 렌더링 */}
+          {renderTitle(title || dish.name)}
+          <TouchableOpacity onPress={toggleLike} style={styles.likeButton}>
+            <Icon
+              name={liked ? "heart" : "heart-o"}
+              size={24}
+              color="red"
+            />
+          </TouchableOpacity>
+          <Text style={[styles.likesCount, liked && styles.likedText]}>{likes}</Text>
+        </View>
       </View>
     </View>
   );
@@ -78,15 +86,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     flexGrow: 1,
   },
+  menuNamePart: {
+    // 메뉴 이름 각 부분에 적용할 스타일
+    fontSize: 24, // 메뉴 이름의 기본 글꼴 크기와 동일하게 설정
+  },
   likeButton: {
-    padding: 8, // Add padding for larger touch area
+    padding: 8,
   },
   likesCount: {
     fontSize: 18,
-    color: 'black', // default color
+    color: 'black',
   },
   likedText: {
-    color: 'red', // color when liked
+    color: 'red',
   },
   minfo: {
     fontSize: 16,

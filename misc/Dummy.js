@@ -1,6 +1,6 @@
 // const moment = require('moment');
 const like_sample = { like: 10, neutral: 5, bad: 3 };
-const porkCutletImage = require('./img/Pork_Cutlet.webp');
+
 
 // 식단 정보를 담는 클래스
 class Menu {
@@ -50,44 +50,6 @@ export const menus = [
   new Menu(6, "사골만둣국,잡채말이어묵,콩나물무침,무말랭이무침,쌀밥/잡곡밥,배추김치", "2023-10-13", "employee"),
 ];
 
-
-// export const dishes = [
-//     {id: 0, name: "차돌된장찌개", date: '2023-10-13', image: porkCutletImage, price: 5500, allergen: null, available: true, like: like_sample},
-//     {id: 1, name: "남산왕돈까스", date: '2023-10-13', image: null, price: 5000, allergen: null, available: true, like: like_sample},
-//     {id: 2, name: "나가사키라멘", date: '2023-10-13', image: null, price: 5000, allergen: null, available: true, like: like_sample},
-//     {id: 3, name: "돈사태찜", date: '2023-10-13', image: null, price: 5500, allergen: null, available: true, like: like_sample},
-//     {id: 4, name: "참치김치볶음밥*계란후라이", date: '2023-10-13', image: null, price: 5500, allergen: null, available: true, like: like_sample},
-// ];
-
-// export const morningDish = {
-//   id: 1,
-//   name: "소고기미역국",
-//   date: "2023-10-13",
-//   image: null,
-//   price: null,
-//   allergen: null,
-//   available: true,
-//   like: like_sample,
-// };
-
-// export const employeeDishes = {
-//     id: 1,
-//     name: "교직원식당",
-//     menu: [
-//         "사골만둣국",
-//         "잡채말이어묵",
-//         "콩나물무침",
-//         "무말랭이무침",
-//         "쌀밥/잡곡밥",
-//         "배추김치",
-//     ],
-//     date: "2023-10-13",
-//     image: null,
-//     price: null,
-//     allergen: null,
-//     available: true,
-//     like: like_sample,
-//   };
 
 export const ranking = {
   type: 'weekly',

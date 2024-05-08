@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { FlexWidget, TextWidget, ImageWidget, ListWidget } from 'react-native-android-widget';
-import { menus } from "../misc/Dummy";
+import { Meal } from "../entity/Meal";
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -18,21 +18,35 @@ const formatDate = (date) => {
 };
 
 export function ShikdanWidget() {
-  const currentDate = formatDate(new Date());
+  const [meals, setMeals] = useState([]); // State to hold meal data
+  const currentDate = formatDate(new Date()); //날짜
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      try {
+        const fetchedMeals = await Meal.fetchDaily(new Date());
+        setMeals(fetchedMeals);
+      } catch (error) {
+        console.error('Error fetching meals:', error);
+      }
+    };
+
+    fetchMeals();
+  }, []);
 
   // 학생과 교직원 필터링
-  const studentMenus = menus.filter(menu => menu.type === 'student');
-  const employeeMenus = menus.filter(menu => menu.type === 'employee');
+  const studentMenus = meals.filter(meal => meal.type === 'student' || meal.type === 'lunch');
+  const employeeMenus = meals.filter(meal => meal.type === 'employee');
 
   return (
-    <FlexWidget style={styles.widgetStyle}>
+     <FlexWidget style={styles.widgetStyle}>
       <TextWidget text={currentDate} style={styles.dateStyle} />
 
       <TextWidget text={"학생식당"} style={styles.titleStyle} />
       <ListWidget style={styles.listStyle}>
-        {studentMenus.map((menu, index) => (
+        {studentMenus.map((meal, index) => (
           <FlexWidget key={index} style={styles.flexWidgetStyle}>
-            <TextWidget text={`- ${menu.name}`} style={styles.itemStyle} />
+            <TextWidget text={`- ${meal.name}`} style={styles.itemStyle} />
             <FlexWidget style={styles.flexwidget}>
               <ImageWidget 
                 image={require('../assets/icons/heart.png')} 
@@ -40,7 +54,7 @@ export function ShikdanWidget() {
                 imageHeight={15} 
                 marginHorizontal={8} 
               />
-              <TextWidget text={`${menu.likeCnt.like}`} style={styles.likeTextStyle} />
+              <TextWidget text={`${meal.likeCount}`} style={styles.likeTextStyle} />
             </FlexWidget>
           </FlexWidget>
         ))}
@@ -50,9 +64,9 @@ export function ShikdanWidget() {
         <FlexWidget style={{width:'match_parent'}}>
           <TextWidget text={"교직원식당"} style={styles.titleStyle} />
           <ListWidget style={styles.listStyle}>
-            {employeeMenus.map((menu, index) => (
+            {employeeMenus.map((meal, index) => (
               <FlexWidget key={index} style={styles.flexWidgetStyle}>
-               <TextWidget text={` ${menu.name.split(',').slice(0, 3).join(', ')}`} style={styles.employeeitemStyle} />
+               <TextWidget text={` ${meal.name.split(',').slice(0, 3).join(', ')}`} style={styles.employeeitemStyle} />
               </FlexWidget>
             ))}
           </ListWidget>

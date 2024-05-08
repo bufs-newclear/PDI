@@ -29,16 +29,39 @@ export default function MenuCard({
    * @param {string} themeColorBackground - fallbackText를 표시할 때의 배경색
    * @param {string} description - 카드 제목 아래에 표시할 텍스트
    */
-  const [liked, setLiked] = useState(false);
-  const toggleLike = () => {
-    setLiked(!liked);
-  };
+  const [liked, setLiked] = useState(dish.myLike);
+  const [likes, setLikes] = useState(dish.likeCount);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [isDetailVisible, setIsDetailVisible] = useState(false);
+
+  const toggleLike = async () => {
+    if (isUpdating) return;
+    setIsUpdating(true);
+    const currentlyLiked = liked;
+
+    setLiked(!liked);
+    setLikes(liked ? likes - 1 : likes + 1);
+
+    try {
+      if (currentlyLiked) {
+        await dish.dislike();
+      } else {
+        await dish.like();
+      }
+      setLiked(dish.myLike);
+      setLikes(dish.likeCount);
+    } catch (error) {
+      setLiked(currentlyLiked);
+      setLikes(currentlyLiked ? likes - 1 : likes + 1);
+      console.error('Error toggling like:', error.message);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
 
   const toggleDetailVisibility = () => {
     setIsDetailVisible(!isDetailVisible);
   };
-
 
   title = title || dish.name;
 
@@ -72,29 +95,21 @@ export default function MenuCard({
             )}
           </View>
           <View style={styles.infoArea}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text numberOfLines={1} style={styles.menuName}>
-                {title}
-              </Text>
+            <View style={styles.headerRow}>
+              <Text numberOfLines={1} style={styles.menuName}>{title}</Text>
               <Text style={styles.timestyle}>{timeText}</Text>
             </View>
             <Text style={styles.minfo}>{description}</Text>
             <View style={styles.rowContainer}>
               <TouchableOpacity onPress={toggleLike} style={styles.likeButton}>
                 <Icon
-                  name={liked ? "heart" : "heart-o"} // "heart" is filled and "heart-o" is outlined
+                  name={liked ? "heart" : "heart-o"}
                   size={24}
-                  color="red" // This sets the default color to red
+                  color="red"
                 />
               </TouchableOpacity>
               <Text style={[styles.likesCount, liked && styles.likedText]}>
-                {dish.likeCount} //-------------------------------------좋아요 고민하자
+                {likes}
               </Text>
             </View>
             <Text style={styles.toggledetailText}>상세정보</Text>
@@ -134,45 +149,30 @@ const styles = StyleSheet.create({
   },
   infoArea: {
     flex: 1,
-    flexDirection: "column", // Change to column for vertical arrangement
+    flexDirection: "column",
     justifyContent: "space-between",
     paddingHorizontal: 15,
     paddingTop: 10,
   },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   rowContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 10, // Add padding vertically if needed
-  },
-  likeIcon: {
-    position: "absolute",
+    paddingVertical: 10,
   },
   likeButton: {
-    marginRight: 8, // Adds space after the heart icon
+    marginRight: 8,
   },
   likesCount: {
     fontSize: 18,
-    color: "black", // Default color is black
+    color: "black",
   },
   likedText: {
-    color: "red", // When liked, the color will be red
-  },
-  reactButton: {
-    minWidth: 63,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#ddd",
-    borderRadius: 4,
-    padding: 4,
-    paddingHorizontal: 7,
-    marginLeft: 5,
-    justifyContent: "space-between",
-  },
-  sadActive: {
-    backgroundColor: "brown", // 활성화됐을 때의 배경색
-  },
-  neutralActive: {
-    backgroundColor: "brown", // 활성화됐을 때의 배경색
+    color: "red",
   },
   menuName: {
     fontSize: 28,
@@ -185,28 +185,14 @@ const styles = StyleSheet.create({
     bottom: 60,
     left: 20,
   },
-  rowContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    bottom: 10,
-  },
   toggledetailText: {
     color: "blue",
-    marginTop: "auto",
-
-    // 이 아래는 시행착오
     position: "absolute",
     bottom: 10,
     right: 25,
   },
   timestyle: {
     fontSize: 18,
-  },
-
-  // debug
-  debugBorder: {
-    borderColor: "red",
-    borderWidth: 2,
   },
   detailContainer: {
     padding: 5,

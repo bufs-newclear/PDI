@@ -70,7 +70,7 @@ export default function Meals() {
         )}
         <MenuCardFolder
           title="학생식당"
-          description={`${lunch.length}개의 메뉴가 있습니다`}
+          description={lunch.length === 0 ? "미운영" : `${lunch.length}개의 메뉴가 있습니다`}
           themeColor="#2f5597"
           themeColorBackground="#dae3f3"
           fallbackText={"LUNCH\n학생식당"}

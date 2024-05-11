@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, ActivityIndicator } from "react-native";
+import { Text, View, ActivityIndicator, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar, Button } from "expo-status-bar";
@@ -58,11 +58,13 @@ const App = () => {
             component={Ranking}
             options={{ headerShown: false }}
           />
-          <Tab.Screen
-            name="위젯 미리보기"
-            component={ShikdanWidgetPreviewScreen}
-            options={{ headerShown: false }}
-          />
+          {Platform.OS === 'android' && (
+            <Tab.Screen
+              name="위젯 미리보기"
+              component={ShikdanWidgetPreviewScreen}
+              options={{ headerShown: false }}
+            />
+          )}
         </Tab.Navigator>
       </NavigationContainer>
     </RootSiblingParent>

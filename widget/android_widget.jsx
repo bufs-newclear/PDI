@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { WidgetPreview } from 'react-native-android-widget';
 import { Meal } from '../entity/Meal';
 import moment from 'moment';
@@ -19,12 +19,28 @@ export function ShikdanWidgetPreviewScreen() {
 
   return (
     <View style={styles.container}>
+      <Text style={{
+        color: '#333',
+        fontSize: 24,
+        fontWeight: "bold",
+        marginHorizontal: 14,
+        marginBottom: 12,
+        width: 'match_parent',
+
+      }}>{
+        "위젯 미리보기"
+      }</Text>
+
       <WidgetPreview
         renderWidget={() => <ShikdanWidget currentDate={datestring} meals={meals}/>}
         // renderWidget={() => <ShikdanWidget />}
         width={320}
         height={200}
       />
+
+      <Text style={{color: '#777', marginHorizontal: 14, marginTop: 6}}>{
+        "홈 화면에 위젯을 추가하여 오늘의 식단을 더욱 편하게 확인하세요!"
+      }</Text>
     </View>
   );
 }

@@ -11,7 +11,7 @@ export function ShikdanWidget({currentDate = '2000-12-31', meals = []}) {
   const employeeMenus = meals.filter(meal => meal.type === 'employee');
 
   return (
-     <FlexWidget style={styles.widgetStyle}>
+     <FlexWidget style={styles.widgetStyle} clickAction="OPEN_APP">
       <TextWidget text={currentDate} style={styles.dateStyle} />
 
       <TextWidget text={"학생식당"} style={styles.titleStyle} />

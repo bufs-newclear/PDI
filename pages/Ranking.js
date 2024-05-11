@@ -9,7 +9,8 @@ import {
   View,
   FlatList,
 } from "react-native";
-import { ranking } from "../misc/Dummy";
+import { Meal } from "../entity/Meal";
+import moment from "moment";
 
 const localIcons = {
   1: require('../assets/icons/number_1.png'),
@@ -31,15 +32,15 @@ const IconForRank = ({ rank }) => {
   return <Image source={iconSource} style={{ width: 24, height: 24 }} />;
 };
 
-const Item = ({ rank, name, hearts }) => {
-if (!name) return null;
+const Item = ({ rank, meal }) => {
+if (!meal.name) return null;
   return(
     <View style={styles.item}>
       <IconForRank rank={rank} />
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{meal.name}</Text>
       <View style={styles.heartsContainer}>
         <FontAwesome5 name="heart" size={24} color="red" solid/>
-        <Text style={styles.hearts}>{hearts}</Text>
+        <Text style={styles.hearts}>{meal.likeCount}</Text>
       </View>
     </View>
   );
@@ -54,17 +55,18 @@ export default function Ranking() {
   const [sortedData, setSortedData] = useState([]);
 
   useEffect(() => {
-    if (sortedData.length === 0) {
-      sortData();
-    }
-  }, [sortedData]);
+    fetchMealData();
+  }, []);
 
-  const sortData = () => {
-    // const sorted = ranking['data'].sort((a, b) => b.likes - a.likes);
-    //
-    const sorted = ranking.data.sort((a, b) => b.likes - a.likes);
-    //
-    setSortedData(sorted);
+  const fetchMealData = async () => {
+    const today = moment.utc() // Use current date or specific date as needed
+    try {
+      const meals = await Meal.fetchDaily(today);
+      meals.sort((a, b) => b.likeCount - a.likeCount); // Sort based on like count
+      setSortedData(meals);
+    } catch (error) {
+      console.error("Failed to fetch meals", error);
+    }
   };
 
   return (
@@ -84,9 +86,9 @@ export default function Ranking() {
     <FlatList //트로피 이미지 순위
       data={sortedData}
       renderItem={({ item, index }) => (
-        <Item rank={index + 1} name={item.name} hearts={item.likes} />
+        <Item rank={index + 1} meal={item} />
       )}
-      keyExtractor={(item, index) => String(index)}
+      keyExtractor={(item, index) => String(item.id)}
     />
   </View>
   );

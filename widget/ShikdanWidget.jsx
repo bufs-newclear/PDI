@@ -1,38 +1,10 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { FlexWidget, TextWidget, ImageWidget, ListWidget } from 'react-native-android-widget';
 import { Meal } from "../entity/Meal";
 
-const formatDate = (date) => {
-  const d = new Date(date);
-  let month = '' + (d.getMonth() + 1);
-  let day = '' + d.getDate();
-  let year = d.getFullYear();
 
-  if (month.length < 2) 
-    month = '0' + month;
-  if (day.length < 2) 
-    day = '0' + day;
-
-  return [year, month, day].join('-');
-};
-
-export function ShikdanWidget() {
-  const [meals, setMeals] = useState([]); // State to hold meal data
-  const currentDate = formatDate(new Date()); //날짜
-
-  useEffect(() => {
-    const fetchMeals = async () => {
-      try {
-        const fetchedMeals = await Meal.fetchDaily(new Date());
-        setMeals(fetchedMeals);
-      } catch (error) {
-        console.error('Error fetching meals:', error);
-      }
-    };
-
-    fetchMeals();
-  }, []);
+export function ShikdanWidget({currentDate = '2000-12-31', meals = []}) {
 
   // 학생과 교직원 필터링
   const studentMenus = meals.filter(meal => meal.type === 'student' || meal.type === 'lunch');
@@ -144,3 +116,4 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
 });
+

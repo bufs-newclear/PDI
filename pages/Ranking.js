@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 //
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Image } from 'react-native';
@@ -52,6 +53,7 @@ if (!name) return null;
 //
 export default function Ranking() {
   const [sortedData, setSortedData] = useState([]);
+  const currentDate = moment().utc().local().format('YYYY-MM-DD');
 
   useEffect(() => {
     if (sortedData.length === 0) {

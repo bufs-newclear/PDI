@@ -37,7 +37,7 @@ if (!name) return null;
     <View style={styles.item}>
       <IconForRank rank={rank} />
       <Text style={styles.name}>{name}</Text>
-      <View style={{minWidth: 60, flexDirection: 'row',}}>
+      <View style={styles.heartsContainer}>
         <FontAwesome5 name="heart" size={24} color="red" solid/>
         <Text style={styles.hearts}>{hearts}</Text>
       </View>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   header:{
     flexDirection: 'row',
-    justifyContent:"space-around",
+    justifyContent: "space-around",
     _rank: {
       fontSize:20,
       textAlign: "center",
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     _name: {
       flex: 1,
       fontSize: 20,
-      textAlign: "center",
+      textAlign: "center", // Ensure this is set to "center" for the header
       backgroundColor:"#f2f2f2",
       paddingHorizontal: 10,
       marginHorizontal: 10,
@@ -149,20 +149,28 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between', // This will ensure the name and hearts container don't affect each other's position
     paddingVertical: 8,
-    paddingHorizontal: 16, // 좌우 여백 추가
-    borderBottomWidth: 1, // 리스트 아이템 간 구분선 추가
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
     borderColor: 'lightgrey',
   },
   name: {
     flex: 1,
-    marginLeft: 8,
+    marginLeft: 20,
     paddingLeft: 10,
     fontSize: 22,
+    textAlign:"left",
   },
   hearts: {
     fontSize: 18,
     color: 'red',
     marginLeft: 4,
+    textAlign: "right",
+  },
+  heartsContainer: {
+    flexDirection: 'row',
+    width: 110, // Adjust this width based on your layout needs
+    justifyContent: 'flex-end',
   },
 });

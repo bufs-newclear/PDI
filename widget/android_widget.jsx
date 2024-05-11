@@ -10,7 +10,7 @@ export function ShikdanWidgetPreviewScreen() {
   const [meals, setMeals] = useState([]);
 
   useEffect(async () => {
-    const today = moment('2024-05-09').utc()
+    const today = moment().utc()
   
     setDatestring(today.local().format('YYYY-MM-DD'));
     setMeals(await Meal.fetchDaily(today));

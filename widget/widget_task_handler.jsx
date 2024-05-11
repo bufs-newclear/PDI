@@ -16,7 +16,7 @@ export async function widgetTaskHandler(props) {
     switch (props.widgetAction) {
       case 'WIDGET_ADDED':
       case 'WIDGET_UPDATE':
-        const today = moment('2024-05-09').utc()
+        const today = moment().utc()
 
         const dateString = today.local().format('YYYY-MM-DD');
         const fetchedMeals = await Meal.fetchDaily(today);

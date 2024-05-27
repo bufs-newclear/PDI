@@ -46,6 +46,32 @@ export class Meal {
     return meals;
   }
 
+  static async fetchRanking() {
+
+    const res = await api_get(
+      `${BACKEND_URL}/meals/ranking`
+    );
+
+    if (!res.ok) {
+      throw new Error(`일간 식단을 가져올 수 없습니다 [${res.status}] : ${res.json}`);
+    }
+
+    const data = await res.json();
+    let meals = [];
+
+    data.forEach(meal => {
+      meals.push(new Meal(
+        meal.id,
+        meal.name,
+        meal.date,
+        meal.meal_type,
+        meal.like_count
+      ))
+    });
+
+    return meals;
+  }
+
   // static fetchFromId(id, date) {
   //   let meal = new Meal();
   //   // TODO: API에서 식단 정보를 가져온다

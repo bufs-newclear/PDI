@@ -35,7 +35,7 @@ export default function Meals() {
 
       setLunch(dailyMeals.filter((meal) => meal.type === "lunch"));
       setMorning(dailyMeals.filter((meal) => meal.type === "morning"));
-      setEmployee(dailyMeals.filter((meal) => meal.type === "emplyee"));
+      setEmployee(dailyMeals.filter((meal) => meal.type === "employee"));
 
       setLoading(false);
     } catch (error) {
@@ -61,7 +61,7 @@ export default function Meals() {
             title="조식"
             image={undefined}
             dish={morning[0]}
-            description='학생증 인증 필요'
+            description='학생증 지참 필수'
             timeText="08:00~09:00"
             themeColor="#c55a11"
             themeColorBackground="#fbe5d7"
@@ -88,7 +88,7 @@ export default function Meals() {
           <MenuCard
             title="교직원식당"
             image={undefined}
-            dish={employee}
+            dish={employee[0]}
             morninginfo='학생 이용 가능'
             timeText="11:30~13:30"
             themeColor="#548235"

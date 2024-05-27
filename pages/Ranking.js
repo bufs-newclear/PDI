@@ -59,9 +59,9 @@ export default function Ranking() {
   }, []);
 
   const fetchMealData = async () => {
-    const today = moment.utc() // Use current date or specific date as needed
+  
     try {
-      const meals = await Meal.fetchDaily(today);
+      const meals = await Meal.fetchRanking();
       meals.sort((a, b) => b.likeCount - a.likeCount); // Sort based on like count
       setSortedData(meals);
     } catch (error) {

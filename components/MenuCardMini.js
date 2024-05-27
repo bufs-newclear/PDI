@@ -32,17 +32,29 @@ export default function MenuCardMini({ title, dish }) {
     }
   };
 
-  // `*` 기준으로 이름을 분리하여 줄바꿈 처리
+  
   const renderTitle = (title) => {
-    const titleParts = title.split('*').map((part, index) => (
+    // 정규식을 사용하여 '*' 또는 '('를 포함하여 분할
+    const titleParts = title.split(/(\*|\()/).reduce((acc, part, index, array) => {
+      if (index > 0 && (array[index - 1] === '*' || array[index - 1] === '(')) {
+        acc[acc.length - 1] += part; // 이전 부분에 추가
+      } else {
+        acc.push(part); // 새로운 부분으로 추가
+      }
+      return acc;
+    }, []);
+  
+    const formattedTitleParts = titleParts.map((part, index) => (
       <Text key={index} style={styles.menuNamePart}>
-        {part.trim() + (index !== title.split('*').length - 1 ? '\n' : '')}
+        {part}
+        {(index !== titleParts.length - 1) ? '\n' : ''}
       </Text>
     ));
-
-    return <Text style={styles.menuName}>{titleParts}</Text>;
+  
+    return <Text style={styles.menuName}>{formattedTitleParts}</Text>;
   };
-
+  
+  
   return (
     <View style={styles.container}>
       <View style={styles.infoArea}>

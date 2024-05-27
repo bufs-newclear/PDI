@@ -4,10 +4,10 @@
     "slug": "PDI-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/123.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/iconA.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

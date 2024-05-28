@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-//
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Image } from 'react-native';
-// import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-} from "react-native";
+import { Image, StyleSheet, Text, View, FlatList } from "react-native";
 import { Meal } from "../entity/Meal";
 import moment from "moment";
+// import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 
 const localIcons = {
   1: require('../assets/icons/number_1.png'),
@@ -27,30 +20,39 @@ const localIcons = {
 };
 
 const IconForRank = ({ rank }) => {
-  // Map the ranks to appropriate FontAwesome icons
-  const iconSource = localIcons[rank]; // 순위에 맞는 로컬 이미지를 가져옵니다.
+  const iconSource = localIcons[rank];// 순위에 맞는 로컬 이미지를 가져옵니다.
   return <Image source={iconSource} style={{ width: 24, height: 24 }} />;
 };
 
 const Item = ({ rank, meal }) => {
-if (!meal.name) return null;
-  return(
+  if (!meal.name) return null;
+
+  // 이름을 "*" 또는 "(" 기준으로 분할하여 각 부분을 줄바꿈
+  const formatName = (name) => {
+    return name.split(/(\*|\()/).map((part, index) => (
+      <Text key={index} style={styles.namePart}>
+        {part}
+        {(index % 2 === 1) ? '\n' : ''}
+      </Text>
+    ));
+  };
+
+  return (
     <View style={styles.item}>
       <IconForRank rank={rank} />
-      <Text style={styles.name}>{meal.name}</Text>
+      <Text style={styles.name}>{formatName(meal.name)}</Text>
       <View style={styles.heartsContainer}>
-        <FontAwesome5 name="heart" size={24} color="red" solid/>
+        <FontAwesome5 name="heart" size={24} color="red" solid />
         <Text style={styles.hearts}>{meal.likeCount}</Text>
       </View>
     </View>
   );
 }
 
-
-
 // export default function Ranking() {
 //   const sortedData = ranking['data'].sort((a, b) => b.likes - a.likes);
 //
+
 export default function Ranking() {
   const [sortedData, setSortedData] = useState([]);
 
@@ -59,7 +61,6 @@ export default function Ranking() {
   }, []);
 
   const fetchMealData = async () => {
-  
     try {
       const meals = await Meal.fetchRanking();
       meals.sort((a, b) => b.likeCount - a.likeCount); // Sort based on like count
@@ -71,26 +72,26 @@ export default function Ranking() {
 
   return (
     <View style={styles.container}>
-    <View style={styles.title}>
-      <View style={{flexDirection: 'row',}}>
-      <FontAwesome5 name="crown" size={30} color="orange"  />
-      <Text style={styles.titleText}>역대 랭킹</Text>
+      <View style={styles.title}>
+        <View style={{ flexDirection: 'row' }}>
+          <FontAwesome5 name="crown" size={30} color="orange" />
+          <Text style={styles.titleText}>역대 랭킹</Text>
+        </View>
+        <Text style={styles.subtitle}>10월 3주차</Text>
       </View>
-      <Text style={styles.subtitle}>10월 3주차</Text>
+      <View style={styles.header}>
+        <Text style={styles.header._rank}>순위</Text>
+        <Text style={styles.header._name}>메뉴</Text>
+        <Text style={styles.header._likes}>좋아요 수</Text>
+      </View>
+      <FlatList
+        data={sortedData}
+        renderItem={({ item, index }) => (
+          <Item rank={index + 1} meal={item} />
+        )}
+        keyExtractor={(item, index) => String(item.id)}
+      />
     </View>
-    <View style={styles.header}>
-      <Text style={styles.header._rank}>순위</Text>
-      <Text style={styles.header._name}>메뉴</Text>
-      <Text style={styles.header._likes}>좋아요 수</Text>
-    </View>
-    <FlatList //트로피 이미지 순위
-      data={sortedData}
-      renderItem={({ item, index }) => (
-        <Item rank={index + 1} meal={item} />
-      )}
-      keyExtractor={(item, index) => String(item.id)}
-    />
-  </View>
   );
 }
 
@@ -104,9 +105,8 @@ const styles = StyleSheet.create({
   title: {
     alignItems: 'left', // 세로축에서 중앙 정렬
     marginBottom: 16,
-    paddingHorizontal:10,
-    paddingTop:15,
-
+    paddingHorizontal: 10,
+    paddingTop: 15,
   },
   titleText: {
     fontSize: 30,
@@ -116,24 +116,24 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: 'gray',
-    paddingLeft:15,
+    paddingLeft: 15,
   },
-  header:{
+  header: {
     flexDirection: 'row',
     justifyContent: "space-around",
     _rank: {
-      fontSize:20,
+      fontSize: 20,
       textAlign: "center",
-      backgroundColor:"#f2f2f2",
+      backgroundColor: "#f2f2f2",
       minWidth: 40,
-      paddingHorizontal:10,
+      paddingHorizontal: 10,
       borderRadius: 5,
     },
     _name: {
       flex: 1,
       fontSize: 20,
       textAlign: "center", // Ensure this is set to "center" for the header
-      backgroundColor:"#f2f2f2",
+      backgroundColor: "#f2f2f2",
       paddingHorizontal: 10,
       marginHorizontal: 10,
       borderRadius: 5,
@@ -147,11 +147,10 @@ const styles = StyleSheet.create({
       borderRadius: 5,
     },
   },
-
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // This will ensure the name and hearts container don't affect each other's position
+    justifyContent: 'space-between',
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
@@ -162,7 +161,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     paddingLeft: 10,
     fontSize: 22,
-    textAlign:"left",
+    textAlign: "left",
+  },
+  namePart: {
+    fontSize: 22,
   },
   hearts: {
     fontSize: 18,
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
   },
   heartsContainer: {
     flexDirection: 'row',
-    width: 110, // Adjust this width based on your layout needs
+    width: 110,
     justifyContent: 'flex-end',
   },
 });

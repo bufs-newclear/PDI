@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
+//
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, View, FlatList } from "react-native";
 import { Meal } from "../entity/Meal";
-import moment from "moment";
 // import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 
 const localIcons = {
@@ -55,6 +56,7 @@ const Item = ({ rank, meal }) => {
 
 export default function Ranking() {
   const [sortedData, setSortedData] = useState([]);
+  const currentDate = moment().utc().local().format('YYYY-MM-DD');
 
   useEffect(() => {
     fetchMealData();
@@ -77,7 +79,7 @@ export default function Ranking() {
           <FontAwesome5 name="crown" size={30} color="orange" />
           <Text style={styles.titleText}>역대 랭킹</Text>
         </View>
-        <Text style={styles.subtitle}>10월 3주차</Text>
+      <Text style={styles.subtitle}>{currentDate}</Text>
       </View>
       <View style={styles.header}>
         <Text style={styles.header._rank}>순위</Text>
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     color: 'orange',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 20,
     color: 'gray',
     paddingLeft: 15,
   },

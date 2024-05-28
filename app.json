@@ -14,6 +14,24 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "Shikdan",
+              "label": "식단 위젯",
+              "minWidth": "320dp",
+              "minHeight": "120dp",
+              "description": "일일 식단 정보",
+              "previewImage": "./assets/widget-preview/2x1.png",
+              "updatePeriodMillis": 1800000
+            }
+          ]
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -31,6 +49,7 @@
       "eas": {
         "projectId": "8093d87f-4c6b-4b40-b5b9-ff5aaa67441c"
       }
-    }
+    },
+    "owner": "bufs-newclear"
   }
 }

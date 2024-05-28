@@ -82,7 +82,7 @@ export default function Ranking() {
       <View style={styles.header}>
         <Text style={styles.header._rank}>순위</Text>
         <Text style={styles.header._name}>메뉴</Text>
-        <Text style={styles.header._likes}>좋아요 수</Text>
+        <Text style={styles.header._likes}>좋아요</Text>
       </View>
       <FlatList
         data={sortedData}

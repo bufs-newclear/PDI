@@ -53,7 +53,15 @@ export default function Meals() {
       </View>
     </View>
     {loading ? (
-      <Text>Loading...</Text> // 간단한 로딩 인디케이터 추가
+      <Text style={{
+        textAlign: 'center',
+        marginTop: 24,
+        color: '#888888',
+        ...styles.menuCards
+
+      }}>
+        식단 정보를 가져오고 있습니다...
+      </Text>
     ) : (
       <>
         {morning.length > 0 && (

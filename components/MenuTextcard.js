@@ -7,6 +7,8 @@ import { Text, View } from "react-native";
    * @param {string} title - 카드 내부에 표시할 텍스트
    */
 export default function MenuTextcard({text}) {
+    text = text.replaceAll(',', '\n');
+
     return (
           <View style={{
             backgroundColor: 'white',
